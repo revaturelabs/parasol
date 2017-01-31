@@ -19,3 +19,5 @@ bin/
 staging-management-system.iml
 .classpath
 .project
+
+.DS_Store
