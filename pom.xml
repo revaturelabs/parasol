@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.1.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -53,11 +53,19 @@
 			<artifactId>ojdbc7</artifactId>
 			<version>12.1.0.1</version>
 		</dependency>
-		
+
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
-	  <finalName>parasol</finalName>
+		<finalName>parasol</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
