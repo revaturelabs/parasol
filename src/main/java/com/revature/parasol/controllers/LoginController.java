@@ -40,4 +40,5 @@ public class LoginController extends WebSecurityConfigurerAdapter{
         .anyRequest()
           .authenticated();
     }
+    
 }
