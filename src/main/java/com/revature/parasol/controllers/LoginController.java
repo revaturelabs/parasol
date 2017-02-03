@@ -24,7 +24,7 @@ public class LoginController extends WebSecurityConfigurerAdapter{
     @Autowired
     Force force;
     
-    @RequestMapping("/authenticate")
+    @RequestMapping("/login")
     public Principal loginUser(OAuth2Authentication principal) {
 	System.out.println(force.printRestUrl(principal));
 	return principal;
