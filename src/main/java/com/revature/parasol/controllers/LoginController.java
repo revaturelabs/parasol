@@ -35,7 +35,11 @@ public class LoginController extends WebSecurityConfigurerAdapter{
       http
         .antMatcher("/**")
         .authorizeRequests()
-          .antMatchers("/", "/login**", "/webjars/**")
+          .antMatchers("/", "/login**", "/webjars/**", "/app.js", "/styling/angular-bootstrap.css",
+        		  "/styling/page.css", "/styling/freelancer.min.css", "/styling/font-awesome.min.css",
+        		  "/bootstrap/bootstrap.min.js", "/js/freelancer.min.js", "/services/AuthenticationService.js",
+        		  "/services/ErrorService.js", "/services/UserService.js", "/landing/landing.js", 
+        		  "/login/login.js", "/js/jqBootstrapValidation.js", "/revature_logo_1080.png")
           .permitAll()
         .anyRequest()
           .authenticated();
