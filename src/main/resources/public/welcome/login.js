@@ -34,6 +34,6 @@
                     vm.dataLoading = false;
                 }
             });
-        };
-    };
+        }
+    }
 })();
