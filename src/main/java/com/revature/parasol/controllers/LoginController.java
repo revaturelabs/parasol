@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @EnableOAuth2Sso
 @RestController
-public class LoginController extends WebSecurityConfigurerAdapter{
+public class LoginController{
 
     @Autowired
     Force force;
