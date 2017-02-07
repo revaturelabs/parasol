@@ -20,20 +20,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-	web.ignoring().antMatchers("/resources/**", "/welcome.html", "/index.html", "/partials/**", "/", "/error/**");
+    	web.ignoring().antMatchers("/webjars/**", "/styling/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-	http.antMatcher("/**").authorizeRequests()
-	.antMatchers("/", "/welcome**", "/login**", "/webjars/**", "**.js", "**.css")
-		.permitAll()
-	.anyRequest()
-		.authenticated()
-	.and().logout()
-		.logoutSuccessUrl("/")
-		.permitAll()
-	.and().csrf(). 
-	csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+		http.antMatcher("/**").authorizeRequests()
+		.antMatchers("/", "/login**")
+			.permitAll()
+		.anyRequest()
+			.authenticated()
+		.and().logout()
+			.logoutSuccessUrl("/")
+			.permitAll()
+		.and().csrf().
+		csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 }
