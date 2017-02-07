@@ -19,3 +19,6 @@ bin/
 staging-management-system.iml
 .classpath
 .project
+
+# MAC
+.DS_Store
