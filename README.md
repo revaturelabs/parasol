@@ -66,3 +66,6 @@ Periodically, work on the development branch will be merged to the master branch
 * stop it from asking me for my password every time I push? Run `git config --global credential.helper wincred`
 * deal with a merge conflict? Cry. Loudly. 
 * actually deal with a merge conflict? Run `git status` to see what files have conflicts and read through the conflicts. A merge conflict will be set off by `<<<<<<<<<<`, and the two conflicting segments are separated by `=======`. The line `>>>>>>>> [SHA hash]` signifies the end of the conflicts.  The code before the `=======` is normally what was there before you tried to merge, and after is what would replace it. Use this information to try to figure things out on your own, but if you want a second opinion, or need help figuring things out, don't be afraid to ask someone for help.
+
+## Cool HTTPS technology! How'd you do it?
+* To do the same, follow the guide on [this website](https://www.heydari.be/spring-boot-application-secured-by-a-lets-encrypt-certificate/), and we used a profile-specific `application.properties` file. To activate that, as it's implimented in this project, set the `SPRING_PROFILES_ACTIVE` to `remote` on your server with the SSL certificates.
