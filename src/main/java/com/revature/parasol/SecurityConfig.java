@@ -19,14 +19,9 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-    	web.ignoring().antMatchers("/webjars/**", "/styling/**", "/bootstrap/**", "/jquery/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
 		http.antMatcher("/**").authorizeRequests()
-		.antMatchers("/", "/login**", "/resources/public/**")
+		.antMatchers("/", "/login**")
 			.permitAll()
 		.anyRequest()
 			.authenticated()
