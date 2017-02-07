@@ -23,7 +23,29 @@ public class LoginController{
     
     @RequestMapping("/login")
     public Principal loginUser(OAuth2Authentication principal) {
-	System.out.println(force.printRestUrl(principal));
-	return principal;
+		System.out.println(force.printRestUrl(principal));
+		return principal;
     }
+    
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//    	web.ignoring().antMatchers("/webjars/**", "/styling/**", "/public/**");
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.authorizeRequests()
+//				.antMatchers("/", "/login")
+//				.permitAll()
+//				.anyRequest()
+//				.authenticated()
+//				.and()
+//			.logout()
+//				.logoutSuccessUrl("/")
+//				.permitAll()
+//				.and()
+//			.csrf()
+//				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//    }
 }

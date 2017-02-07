@@ -18,7 +18,7 @@
 
             .when('/login', {
                 controller: 'LoginController',
-                templateUrl: 'login/login.html',
+                templateUrl: 'welcome/login.html',
                 controllerAs: 'vm'
             })
 
@@ -42,7 +42,7 @@
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn)
             {
-                $location.path('/');
+                $location.path('/login');
             }
             if($location.path() == "/login")
             {
