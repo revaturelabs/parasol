@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Marc
  *
  */
-@EnableOAuth2Sso
 @RestController
 public class LoginController{
 
