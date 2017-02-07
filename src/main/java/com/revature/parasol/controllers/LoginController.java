@@ -30,22 +30,4 @@ public class LoginController extends WebSecurityConfigurerAdapter{
 	System.out.println(force.printRestUrl(principal));
 	return principal;
     }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-     web.ignoring().antMatchers("/resources/**", "/index.html", "/login.html",
-      "/partials/**", "/", "/error/**");
-    }
-    
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-      http
-        .antMatcher("/**")
-        .authorizeRequests()
-          .antMatchers("/", "/login**", "/webjars/**")
-          .permitAll()
-        .anyRequest()
-          .authenticated();
-    }
-    
 }
