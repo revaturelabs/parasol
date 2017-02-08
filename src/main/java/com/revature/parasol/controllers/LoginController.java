@@ -17,39 +17,38 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-public class LoginController{
+public class LoginController {
 
     @Autowired
     Force force;
-    
+
     @RequestMapping("/login")
     public Principal loginUser(OAuth2Authentication principal) {
-		System.out.println("Hello werld!");
-		
-		System.out.println(force.printRestUrl(principal));
-		System.out.println("Principal: " + principal.toString());
-		return principal;
+	System.out.println("Hello world!");
+
+	System.out.println(force.printRestUrl(principal));
+	System.out.println("Principal: " + principal.toString());
+	return principal;
     }
-    
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//    	web.ignoring().antMatchers("/webjars/**", "/styling/**", "/public/**");
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//		http
-//			.authorizeRequests()
-//				.antMatchers("/", "/login")
-//				.permitAll()
-//				.anyRequest()
-//				.authenticated()
-//				.and()
-//			.logout()
-//				.logoutSuccessUrl("/")
-//				.permitAll()
-//				.and()
-//			.csrf()
-//				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-//    }
+    // @Override
+    // public void configure(WebSecurity web) throws Exception {
+    // web.ignoring().antMatchers("/webjars/**", "/styling/**", "/public/**");
+    // }
+    //
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
+    // http
+    // .authorizeRequests()
+    // .antMatchers("/", "/login")
+    // .permitAll()
+    // .anyRequest()
+    // .authenticated()
+    // .and()
+    // .logout()
+    // .logoutSuccessUrl("/")
+    // .permitAll()
+    // .and()
+    // .csrf()
+    // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+    // }
 }
