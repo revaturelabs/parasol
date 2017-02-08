@@ -17,7 +17,7 @@ public class DefaultRoutingController {
     @Autowired
     Force force;
     
-    @RequestMapping("/test")
+    @RequestMapping("/testing")
     public String testing(OAuth2Authentication principal){
 	System.out.println(force.printRestUrl(principal));
 	return "test.html";
