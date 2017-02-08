@@ -24,6 +24,8 @@ public class LoginController{
     
     @RequestMapping("/login")
     public Principal loginUser(OAuth2Authentication principal) {
+		System.out.println("Hello werld!");
+		
 		System.out.println(force.printRestUrl(principal));
 		System.out.println("Principal: " + principal.toString());
 		return principal;
