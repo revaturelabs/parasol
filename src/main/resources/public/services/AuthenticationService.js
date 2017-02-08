@@ -15,14 +15,18 @@
 
         return service;
 
-        function Login(username, password, callback) 
+        function Login(callback) 
         {            
-            $http.post('/authenticate', { username: username, password: password })
+            $http.get('/login')
                  .then(function (response) 
                  {
+                	console.log("Response was good.");
+                	console.log(response);
                     callback(response);
                  },
                  function errorCallback(response){
+                	 console.log("Response was bad.");
+                 	console.log(response);
                      var eResponse = {success: false, 
                      message: 'Login unsuccessful. Returned status ' + response.status};
                      callback(eResponse);
