@@ -14,7 +14,7 @@
     <!-- Custom Fonts -->
     <script src="https://use.fontawesome.com/64f18c2489.js"></script>
 </head>
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-class="largeContent?'index':'index bshort'">
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom" style="position: relative;">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,7 +48,7 @@
         </div>
     </div>
      <!-- Footer -->
-    <footer class="text-center">
+    <footer class="text-center" ng-class="largeContent?'large':'short'">
         <div class="footer-above">
             <div class="container">
                 <div class="row">
@@ -119,7 +119,7 @@
 
     <!-- Angular Controllers -->
     <script src="landing/landing.js"></script>
-    <script src="welcome/login.js"></script>
+    <script src="welcome/welcome.js"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
