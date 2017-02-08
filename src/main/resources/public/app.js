@@ -16,17 +16,17 @@
                 controllerAs: 'vm'
             })
 
-            .when('/login', {
-                controller: 'LoginController',
-                templateUrl: 'welcome/login.html',
+            .when('/welcome', {
+                controller: 'WelcomeController',
+                templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
 
-            .otherwise({ redirectTo: '/login' });
+            .otherwise({ redirectTo: '/welcome' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-    function run($rootScope, $location, $cookies, $http) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout'];
+    function run($rootScope, $location, $cookies, $http, $timeout) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -38,13 +38,13 @@
         {
             // redirect to login page if not logged in and trying to access a restricted page
             $rootScope.showLogout = false;
-            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn)
             {
-                $location.path('/login');
+                $location.path('/welcome');
             }
-            if($location.path() == "/login")
+            if($location.path() == "/welcome")
             {
                 $rootScope.showLogout = false;
             }
@@ -52,6 +52,21 @@
             {
                 $rootScope.showLogout = true;
             }
+        });
+        
+        $rootScope.$on('$viewContentLoaded', function(event, next, current)
+        	{
+                $rootScope.largeContent = false;
+                $timeout(function(){
+                     if($(".jumbotron")[0].clientHeight/window.innerHeight > 0.8)
+                     {
+                         $rootScope.largeContent = true;
+                     }
+                     else
+                     {
+                         $rootScope.largeContent = false;
+                     }
+                }, 0);                    
         });
     }
 
