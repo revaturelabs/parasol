@@ -17,16 +17,16 @@
             })
 
             .when('/welcome', {
-                controller: 'LoginController',
-                templateUrl: 'welcome/login.html',
+                controller: 'WelcomeController',
+                templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
 
             .otherwise({ redirectTo: '/welcome' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-    function run($rootScope, $location, $cookies, $http) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout'];
+    function run($rootScope, $location, $cookies, $http, $timeout) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -52,6 +52,21 @@
             {
                 $rootScope.showLogout = true;
             }
+        });
+        
+        $rootScope.$on('$viewContentLoaded', function(event, next, current)
+        	{
+                $rootScope.largeContent = false;
+                $timeout(function(){
+                     if($(".jumbotron")[0].clientHeight/window.innerHeight > 0.8)
+                     {
+                         $rootScope.largeContent = true;
+                     }
+                     else
+                     {
+                         $rootScope.largeContent = false;
+                     }
+                }, 0);                    
         });
     }
 

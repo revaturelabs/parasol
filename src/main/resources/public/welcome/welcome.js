@@ -3,10 +3,10 @@
 
     angular
         .module('ParasolApp')
-        .controller('LoginController', LoginController);
+        .controller('WelcomeController', WelcomeController);
 
-    LoginController.$inject = ['$location', 'AuthenticationService', 'ErrorService'];
-    function LoginController($location, AuthenticationService, ErrorService) 
+    WelcomeController.$inject = ['$location', 'AuthenticationService', 'ErrorService'];
+    function WelcomeController($location, AuthenticationService, ErrorService) 
     {
         var vm = this;
 
