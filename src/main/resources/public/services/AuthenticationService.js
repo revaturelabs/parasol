@@ -27,7 +27,7 @@
                      message: 'Login unsuccessful. Returned status ' + response.status};
                      callback(eResponse);
                  });
-        };
+        }
 
         function SetCredentials(username, password) 
         {
@@ -45,12 +45,12 @@
             var cookieExp = new Date();
             cookieExp.setDate(cookieExp.getDate() + 1);
             $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
-        };
+        }
 
         function ClearCredentials() {
             $rootScope.globals = {};
             $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
-        };
-    };
+        }
+    }
 })();
