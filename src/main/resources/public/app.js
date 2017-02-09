@@ -72,7 +72,6 @@
         angular.element($window).bind('resize', function(){
             $rootScope.largeContent = false;
             $timeout(function(){
-                 console.log($(".jumbotron")[0].clientHeight + " " + window.innerHeight); 
                  if($(".jumbotron")[0].clientHeight/window.innerHeight > 0.8)
                  {
                      $rootScope.largeContent = true;
