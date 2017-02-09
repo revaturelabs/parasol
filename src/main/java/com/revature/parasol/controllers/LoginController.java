@@ -22,7 +22,7 @@ public class LoginController {
     @Autowired
     Force force;
 
-    @RequestMapping("/sflogin")
+    @RequestMapping("/sflogin2")
     public Principal loginUser(@RequestParam(required=false)String code, OAuth2Authentication principal) {
 	System.out.println(force.printRestUrl(principal));
 	System.out.println("Principal: " + principal.toString() + "\n");
