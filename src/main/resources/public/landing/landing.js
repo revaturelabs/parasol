@@ -23,7 +23,7 @@
 
         function buttonContent()
         {
-        	console.log(($this));
+        	//console.log(($this));
         }
         
         function getUser()
