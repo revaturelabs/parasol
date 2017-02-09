@@ -5,10 +5,10 @@ package com.revature.parasol.controllers;
 
 import java.security.Principal;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +45,9 @@ public class LoginController {
 	System.out.println("Map: " + map.toString() + "\n");
 	System.out.println("Key set of map: " + map.keySet().toString() + "\n");
 
+	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+	System.out.println("Token: " + details.getTokenValue());
+	
 	return authentication;
     }
 }
