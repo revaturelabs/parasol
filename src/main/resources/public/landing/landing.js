@@ -9,6 +9,7 @@
     function LandingController(UserService, $rootScope) {
         var vm = this;
 
+        vm.buttons = buttonContent;
         vm.user = null;
         vm.modules = [];
 
@@ -20,6 +21,11 @@
             getModules();
         }
 
+        function buttonContent()
+        {
+        	console.log(($this));
+        }
+        
         function getUser()
         {
             //Get the user from the server
