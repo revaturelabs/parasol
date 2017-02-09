@@ -37,7 +37,10 @@ public class LoginController {
 	System.out.println("User auth: " + authentication.getUserAuthentication() + "\n");
 	System.out.println("OauthRequest: " + authentication.getOAuth2Request() + "\n");
 	
-	Map<Object, Object> map = (Map<Object, Object>) authentication.getDetails();
+	Object obj = authentication.getUserAuthentication().getDetails();
+	
+	System.out.println("CLASS OF THE OBJECT IN ALL CAPS: " + obj.getClass());
+	Map<Object, Object> map = (Map<Object, Object>) authentication.getUserAuthentication().getDetails();
 	System.out.println("Map: " + map.toString());
 	
 	return authentication;
