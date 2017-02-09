@@ -21,7 +21,7 @@
         {
             //Prevent multiple submissions
             vm.dataLoading = true;
-            $window.location.href = '/login';
+            $window.location.href = '/auth/sf';
 //            AuthenticationService.Login(function (response) 
 //            {
 //                if (response.success) 
