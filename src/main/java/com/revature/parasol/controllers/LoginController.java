@@ -35,7 +35,8 @@ public class LoginController {
 	System.out.println("OauthRequest: " + principal.getOAuth2Request() + "\n");
 	
 	Map<String, Object> map = (Map<String, Object>) principal.getDetails();
-	System.out.println(map.toString());
+	System.out.println("Trying to print map...");
+	System.out.println("Mapped details: " + map.toString());
 	System.out.println("Hopefully getting the sub header: " + map.get("sub"));
 	
 	return principal;
