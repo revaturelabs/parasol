@@ -7,7 +7,9 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,21 +26,19 @@ public class LoginController {
     Force force;
 
     @RequestMapping("/login")
-    public Principal loginUser(@RequestParam(required=false)String code, OAuth2Authentication principal) {
-	System.out.println(force.printRestUrl(principal));
-	System.out.println("Principal: " + principal.toString() + "\n");
-	System.out.println("Name: " + principal.getName() + "\n");
-	System.out.println("Details: " + principal.getDetails() + "\n");
-	System.out.println("Credentials: " + principal.getCredentials() + "\n");
-	System.out.println("Authorities: " + principal.getAuthorities() + "\n");
-	System.out.println("User auth: " + principal.getUserAuthentication() + "\n");
-	System.out.println("OauthRequest: " + principal.getOAuth2Request() + "\n");
+    public Principal loginUser(@RequestParam(required=false)String code, OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+	System.out.println(force.printRestUrl(authentication));
+	System.out.println("Principal: " + authentication.toString() + "\n");
+	System.out.println("Name: " + authentication.getName() + "\n");
+	System.out.println("Details: " + authentication.getDetails() + "\n");
+	System.out.println("Credentials: " + authentication.getCredentials() + "\n");
+	System.out.println("Authorities: " + authentication.getAuthorities() + "\n");
+	System.out.println("User auth: " + authentication.getUserAuthentication() + "\n");
+	System.out.println("OauthRequest: " + authentication.getOAuth2Request() + "\n");
 	
-	Map<String, Object> map = (Map<String, Object>) principal.getDetails();
-	System.out.println("Trying to print map...");
-	System.out.println("Mapped details: " + map.toString());
-	System.out.println("Hopefully getting the sub header: " + map.get("sub"));
 	
-	return principal;
+	System.out.println("Token value: " + accessToken.getValue());
+	
+	return authentication;
     }
 }
