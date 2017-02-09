@@ -42,7 +42,7 @@
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn)
             {
-                $location.path('/');
+                $location.path('/welcome');
             }
             if($location.path() == "/welcome")
             {
