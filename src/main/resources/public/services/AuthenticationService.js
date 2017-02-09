@@ -16,7 +16,8 @@
         return service;
 
         function Login(callback) 
-        {            
+        {          
+        	
             $http.get('/login')
                  .then(function (response) 
                  {

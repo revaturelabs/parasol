@@ -26,12 +26,12 @@ body { padding-top: 0px; }
     width: 30px;
     height: 30px;
     padding: 5px;
-    background-color: #13c0ba;
+    background-color: #72A4C2;
     border-radius: 15px;
     color: #fff;  
 }
 .nav.nav-justified > li.active > a > .quote { opacity: 1; }
-.nav.nav-justified > li > a > img { box-shadow: 0 0 0 5px #13c0ba; }
+.nav.nav-justified > li > a > img { box-shadow: 0 0 0 5px #72A4C2; }
 .nav.nav-justified > li > a > img { 
     max-width: 100%; 
     opacity: .3; 
