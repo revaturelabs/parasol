@@ -4,6 +4,7 @@
 package com.revature.parasol.controllers;
 
 import java.security.Principal;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -33,7 +34,10 @@ public class LoginController {
 	System.out.println("User auth: " + principal.getUserAuthentication() + "\n");
 	System.out.println("OauthRequest: " + principal.getOAuth2Request() + "\n");
 	
-	principal.getAuthorities();
+	Map<String, Object> map = (Map<String, Object>) principal.getDetails();
+	System.out.println(map.toString());
+	System.out.println("Hopefully getting the sub header: " + map.get("sub"));
+	
 	return principal;
     }
 }
