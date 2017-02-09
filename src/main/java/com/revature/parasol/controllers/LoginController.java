@@ -24,10 +24,14 @@ public class LoginController {
 
     @RequestMapping("/sflogin")
     public Principal loginUser(@RequestParam(required=false)String code, OAuth2Authentication principal) {
-	System.out.println("Hello world!");
-
 	System.out.println(force.printRestUrl(principal));
-	System.out.println("Principal: " + principal.toString());
+	System.out.println("Principal: " + principal.toString() + "\n");
+	System.out.println("Name: " + principal.getName() + "\n");
+	System.out.println("Details: " + principal.getDetails() + "\n");
+	System.out.println("Credentials: " + principal.getCredentials() + "\n");
+	System.out.println("Authorities: " + principal.getAuthorities() + "\n");
+	System.out.println("User auth: " + principal.getUserAuthentication() + "\n");
+	System.out.println("OauthRequest: " + principal.getOAuth2Request() + "\n");
 	return principal;
     }
 }
