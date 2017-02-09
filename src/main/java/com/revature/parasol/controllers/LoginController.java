@@ -27,7 +27,7 @@ public class LoginController {
     Force force;
 
     @RequestMapping("/login")
-    public Principal loginUser(@RequestParam(required=false)String code, DefaultOAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+    public Principal loginUser(@RequestParam(required=false)String code, OAuth2Authentication authentication) {
 	System.out.println(force.printRestUrl(authentication));
 	System.out.println("Principal: " + authentication.toString() + "\n");
 	System.out.println("Name: " + authentication.getName() + "\n");
@@ -37,8 +37,8 @@ public class LoginController {
 	System.out.println("User auth: " + authentication.getUserAuthentication() + "\n");
 	System.out.println("OauthRequest: " + authentication.getOAuth2Request() + "\n");
 	
-	
-	System.out.println("Token value: " + accessToken.getValue());
+	Map<Object, Object> map = (Map<Object, Object>) authentication.getDetails();
+	System.out.println("Map: " + map.toString());
 	
 	return authentication;
     }
