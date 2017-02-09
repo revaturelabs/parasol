@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
+@RequestMapping("/auth")
 public class LoginController {
 
     @Autowired
     Force force;
 
-    @RequestMapping("/login")
+    @RequestMapping("/sflogin")
     public Principal loginUser(@RequestParam(required=false)String code, OAuth2Authentication principal) {
 	System.out.println("Hello world!");
 
@@ -29,25 +30,4 @@ public class LoginController {
 	System.out.println("Principal: " + principal.toString());
 	return principal;
     }
-    // @Override
-    // public void configure(WebSecurity web) throws Exception {
-    // web.ignoring().antMatchers("/webjars/**", "/styling/**", "/public/**");
-    // }
-    //
-    // @Override
-    // protected void configure(HttpSecurity http) throws Exception {
-    // http
-    // .authorizeRequests()
-    // .antMatchers("/", "/login")
-    // .permitAll()
-    // .anyRequest()
-    // .authenticated()
-    // .and()
-    // .logout()
-    // .logoutSuccessUrl("/")
-    // .permitAll()
-    // .and()
-    // .csrf()
-    // .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-    // }
 }
