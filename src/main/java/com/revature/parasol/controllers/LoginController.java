@@ -29,9 +29,9 @@ public class LoginController {
     // @Autowired
     // RoleModuleServiceInterface roleModuleService;
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login")
     @ResponseBody
-    public JSONObject loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
+    public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
 
 	// Get the role and modules that the user is allowed to access
 	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
@@ -79,6 +79,6 @@ public class LoginController {
 
 	System.out.println("Token: " + details.getTokenValue());
 
-	return json;
+	return json.toString();
     }
 }
