@@ -3,11 +3,13 @@
  */
 package com.revature.parasol.controllers;
 
+import java.security.Principal;
 import java.util.LinkedHashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,18 +41,39 @@ public class LoginController {
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
 
-	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
+	JSONObject json = new JSONObject();
+	try {
+	    json.put("token", token);
+	} catch (JSONException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
+	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	String forwardString = "forward:index.html" + "?token=" + token;
+
+	return forwardString;
+    }
+
+    @RequestMapping("/rolesandmodules")
+    @ResponseBody
+    public String getRolesAndModules(String token) {
+
+	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+
+	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
 		.getUserAuthentication().getDetails();
 	String userUrl = (String) userAuthDetails.get("sub");
 
-	// String role = roleModuleService.getRoleForUser(userUrl, token);
-	/// Object moduleList = roleModuleService.getModulesForRole(role);
+	//String role = roleModuleService.getRoleForUser(userUrl, token);
+	//Object moduleList = roleModuleService.getModulesForRole(role);
+
 	userAuthDetails.put("role", "role");
 	userAuthDetails.put("modules", "moduleList");
 
 	JSONObject json = new JSONObject();
 	try {
-	    json.put("token", token);
 	    json.put("role", "role");
 	    json.put("modules", "moduleList");
 	} catch (JSONException e) {
@@ -58,27 +81,7 @@ public class LoginController {
 	    e.printStackTrace();
 	}
 
-	System.out.println(force.printRestUrl(authentication));
-	System.out.println("Principal: " + authentication.toString() + "\n");
-	System.out.println("Name: " + authentication.getName() + "\n");
-	System.out.println("Details: " + authentication.getDetails() + "\n");
-	System.out.println("Credentials: " + authentication.getCredentials() + "\n");
-	System.out.println("Authorities: " + authentication.getAuthorities() + "\n");
-	System.out.println("User auth: " + authentication.getUserAuthentication() + "\n");
-	System.out.println("OauthRequest: " + authentication.getOAuth2Request() + "\n");
-
-	Object obj = authentication.getUserAuthentication().getDetails();
-	Object obj2 = authentication.getDetails();
-
-	System.out.println("CLASS OF THE ORIGINAL OBJECT: " + obj2.getClass());
-	System.out.println("CLASS OF THE OBJECT IN ALL CAPS: " + obj.getClass());
-	LinkedHashMap<Object, Object> map = (LinkedHashMap<Object, Object>) authentication.getUserAuthentication()
-		.getDetails();
-	System.out.println("Map: " + map.toString() + "\n");
-	System.out.println("Key set of map: " + map.keySet().toString() + "\n");
-
-	System.out.println("Token: " + details.getTokenValue());
-
 	return json.toString();
     }
+
 }
