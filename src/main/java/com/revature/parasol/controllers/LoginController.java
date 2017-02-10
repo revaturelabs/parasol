@@ -29,26 +29,26 @@ public class LoginController {
     @Autowired
     Force force;
 
-    //@Autowired
-    //RoleModuleServiceInterface roleModuleService;
+    // @Autowired
+    // RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping("/login")
     public JSONObject loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
 
-	//Get the role and modules that the user is allowed to access
-	//I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE ROLE OR MODULES
+	// Get the role and modules that the user is allowed to access
+	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
+	// ROLE OR MODULES
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
-	
+
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
 	String userUrl = (String) userAuthDetails.get("sub");
-	
-	//String role = roleModuleService.getRoleForUser(userUrl, token);
-	///Object moduleList = roleModuleService.getModulesForRole(role);
+
+	// String role = roleModuleService.getRoleForUser(userUrl, token);
+	/// Object moduleList = roleModuleService.getModulesForRole(role);
 	userAuthDetails.put("role", "role");
 	userAuthDetails.put("modules", "moduleList");
-	
 
 	JSONObject json = new JSONObject();
 	try {
@@ -59,7 +59,7 @@ public class LoginController {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
+
 	System.out.println(force.printRestUrl(authentication));
 	System.out.println("Principal: " + authentication.toString() + "\n");
 	System.out.println("Name: " + authentication.getName() + "\n");
