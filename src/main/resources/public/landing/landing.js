@@ -11,7 +11,7 @@
 
         vm.buttons = buttonContent;
         vm.user = null;
-        vm.modules = [];
+        vm.modules = ['first','second','third','fourth'];
 
         initController();
 
@@ -21,9 +21,15 @@
             getModules();
         }
 
-        function buttonContent()
+        function buttonContent(tab)
         {
-        	//console.log(this);
+        	$("li").each(function(){        		
+        		$(this).removeClass("active");
+        		if($(this) == tab)
+        		{
+        			$(this).addClass("active");
+        		}
+        	});
         }
         
         function getUser()

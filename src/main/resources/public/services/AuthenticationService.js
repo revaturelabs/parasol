@@ -17,8 +17,8 @@
 
         function Login(callback) 
         {          
-        	
-            $http.get('/login')
+            $window.location.href = '/auth/login';
+            $http.get('auth/login')
                  .then(function (response) 
                  {
                 	//console.log("Response was good.");

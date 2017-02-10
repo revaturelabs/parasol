@@ -21,20 +21,20 @@
         {
             //Prevent multiple submissions
             vm.dataLoading = true;
-            $window.location.href = '/auth/login';
-//            AuthenticationService.Login(function (response) 
-//            {
-//                if (response.success) 
-//                {
-//                    AuthenticationService.SetCredentials(vm.username, vm.password);
-//                    $location.path('/');
-//                } 
-//                else
-//                {
-//                    ErrorService.Error(response.message);
-//                    vm.dataLoading = false;
-//                }
-//            });
+            
+            AuthenticationService.Login(function (response) 
+            {
+                if (response.authenticated) 
+                {
+                    AuthenticationService.SetCredentials(vm.username, vm.password);
+                    $location.path('/');
+                } 
+                else
+                {
+                    ErrorService.Error(response);
+                    vm.dataLoading = false;
+                }
+            });
         }
     }
 })();

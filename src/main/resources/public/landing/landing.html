@@ -1,27 +1,8 @@
 <!-- Nav tabs -->
-                <ul class="nav nav-justified" id="nav-tabs" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#first" ng-click="vm.buttons()" aria-controls="first" role="tab" data-toggle="tab">
-                            <img class="img-circle" src="modulesButton.jpg" />
-                            <span class="quote"><i class="fa fa-quote-left"></i></span>
-                        </a>
-                    </li>
-                    <li role="presentation" class="">
-                        <a href="#second" ng-click="vm.buttons()" aria-controls="second" role="tab" data-toggle="tab">
-                            <img class="img-circle" src="modulesButton.jpg" />
-                            <span class="quote"><i class="fa fa-quote-left"></i></span>
-                        </a>
-                    </li>
-                    <li role="presentation" class="">
-                        <a href="#third" ng-click="vm.buttons()" aria-controls="third" role="tab" data-toggle="tab">
-                            <img class="img-circle" src="modulesButton.jpg" />
-                            <span class="quote"><i class="fa fa-quote-left"></i></span>
-                        </a>
-                    </li>
-                    <li role="presentation" class="">
-                        <a href="#fourth" ng-click="vm.buttons()" aria-controls="fourth" role="tab" data-toggle="tab">
-                            <img class="img-circle" src="modulesButton.jpg" />
-                            <span class="quote"><i class="fa fa-quote-left"></i></span>
+                <ul class="nav nav-justified">
+                    <li role="presentation" class="" ng-repeat="mod in vm.modules">
+                        <a>
+                            <img class="img-circle" src="modulesButton.jpg" ng-click="vm.buttons(mod)" />
                         </a>
                     </li>
                 </ul>
