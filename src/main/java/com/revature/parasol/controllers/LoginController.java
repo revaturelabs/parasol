@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  */
 @Controller
-@RequestMapping("/auth")
+@RequestMapping(value = "/auth")
 public class LoginController {
 
     @Autowired
@@ -54,7 +54,7 @@ public class LoginController {
 	return forwardString;
     }
 
-    @RequestMapping("/rolesandmodules")
+    @RequestMapping(value = "/rolesandmodules")
     @ResponseBody
     public String getRolesAndModules(String token) {
 
