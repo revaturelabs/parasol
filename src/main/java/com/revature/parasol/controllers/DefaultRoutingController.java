@@ -13,7 +13,6 @@ public class DefaultRoutingController {
     public String routeToHome(){
         return "forward:index.html";
     }
-    
     @Autowired
     Force force;
     
