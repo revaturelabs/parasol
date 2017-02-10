@@ -3,9 +3,7 @@
  */
 package com.revature.parasol.controllers;
 
-import java.security.Principal;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,9 +12,8 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.revature.parasol.domain.service.RoleModuleServiceInterface;
 
 /**
  * @author Marc
@@ -33,6 +30,7 @@ public class LoginController {
     // RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping("/login")
+    @ResponseBody
     public JSONObject loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
 
 	// Get the role and modules that the user is allowed to access
