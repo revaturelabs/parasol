@@ -53,8 +53,8 @@ public class LoginController {
 	JSONObject json = new JSONObject();
 	try {
 	    json.put("token", token);
-	    json.put("role", role);
-	    json.put("modules", moduleList);
+	    json.put("role", "role");
+	    json.put("modules", "moduleList");
 	} catch (JSONException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
