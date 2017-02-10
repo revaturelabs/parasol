@@ -9,8 +9,9 @@
     function LandingController(UserService, $rootScope) {
         var vm = this;
 
+        vm.buttons = buttonContent;
         vm.user = null;
-        vm.modules = [];
+        vm.modules = ['first','second','third','fourth'];
 
         initController();
 
@@ -20,6 +21,17 @@
             getModules();
         }
 
+        function buttonContent(tab)
+        {
+        	$("li").each(function(){        		
+        		$(this).removeClass("active");
+        		if($(this) == tab)
+        		{
+        			$(this).addClass("active");
+        		}
+        	});
+        }
+        
         function getUser()
         {
             //Get the user from the server

@@ -16,17 +16,18 @@
         return service;
 
         function Login(callback) 
-        {            
-            $http.get('/login')
+        {          
+            $window.location.href = '/auth/login';
+            $http.get('auth/login')
                  .then(function (response) 
                  {
-                	console.log("Response was good.");
-                	console.log(response);
+                	//console.log("Response was good.");
+                	//console.log(response);
                     callback(response);
                  },
                  function errorCallback(response){
-                	 console.log("Response was bad.");
-                 	console.log(response);
+                	 //console.log("Response was bad.");
+                 	//console.log(response);
                      var eResponse = {success: false, 
                      message: 'Login unsuccessful. Returned status ' + response.status};
                      callback(eResponse);

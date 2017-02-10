@@ -30,8 +30,8 @@
             .otherwise({ redirectTo: '/welcome' });
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout'];
-    function run($rootScope, $location, $cookies, $http, $timeout) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
+    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -47,7 +47,7 @@
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn)
             {
-                $location.path('/welcome');
+                $location.path('/');
             }
             if($location.path() == "/welcome")
             {
@@ -72,6 +72,20 @@
                          $rootScope.largeContent = false;
                      }
                 }, 0);                    
+        });
+        
+        angular.element($window).bind('resize', function(){
+            $rootScope.largeContent = false;
+            $timeout(function(){
+                 if($(".jumbotron")[0].clientHeight/window.innerHeight > 0.8)
+                 {
+                     $rootScope.largeContent = true;
+                 }
+                 else
+                 {
+                     $rootScope.largeContent = false;
+                 }
+            }, 0);
         });
     }
 
