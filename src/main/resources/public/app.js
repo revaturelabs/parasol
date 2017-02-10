@@ -21,6 +21,11 @@
                 templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
+            .when('/moduleRegistration', {
+                controller: 'ModuleRegistrationController',
+                templateUrl: 'moduleRegistration/moduleRegistration.html',
+                controllerAs: 'vm'
+            })
 
             .otherwise({ redirectTo: '/welcome' });
     }
