@@ -46,8 +46,8 @@ public class LoginController {
 	
 	String role = roleModuleService.getRoleForUser(userUrl, token);
 	Object moduleList = roleModuleService.getModulesForRole(role);
-	userAuthDetails.put("role", role);
-	userAuthDetails.put("modules", moduleList);
+	userAuthDetails.put("role", "role");
+	userAuthDetails.put("modules", "moduleList");
 	
 
 	JSONObject json = new JSONObject();
