@@ -29,8 +29,8 @@ public class LoginController {
     @Autowired
     Force force;
 
-    @Autowired
-    RoleModuleServiceInterface roleModuleService;
+    //@Autowired
+    //RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping("/login")
     public JSONObject loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
@@ -44,8 +44,8 @@ public class LoginController {
 		.getUserAuthentication().getDetails();
 	String userUrl = (String) userAuthDetails.get("sub");
 	
-	String role = roleModuleService.getRoleForUser(userUrl, token);
-	Object moduleList = roleModuleService.getModulesForRole(role);
+	//String role = roleModuleService.getRoleForUser(userUrl, token);
+	///Object moduleList = roleModuleService.getModulesForRole(role);
 	userAuthDetails.put("role", "role");
 	userAuthDetails.put("modules", "moduleList");
 	
