@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('ParasolApp')
+        .module('ParasolApp', [])
         .controller('ModuleRegistrationController', ModuleRegistrationController);
      // injections go here
     ModuleRegistrationController.$inject = ['$location'];
@@ -17,7 +17,7 @@
             
         })();
 
-        function login() 
+        function registerModule() 
         {
             //Prevent multiple submissions
             vm.dataLoading = true;

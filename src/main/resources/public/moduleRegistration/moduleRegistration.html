@@ -1,125 +1,74 @@
-<!DOCTYPE html>
-<html ng-app="ParasolApp">
+<html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Revature - Parasol</title>
-    <!-- Latest compiled and minified CSS -->
-    <link href="styling/angular-bootstrap.css" rel="stylesheet">
-    <!-- Local Styling -->
-    <link href="styling/page.css" rel="stylesheet" />
-    <!-- Theme CSS -->
-    <link href="styling/freelancer.min.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <script src="https://use.fontawesome.com/64f18c2489.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script  type="text/javascript" src="moduleRegistration.js"></script>
+
+
+<style>
+form .ng-invalid.ng-dirty
+{
+    background-color: red;
+}
+form .ng-valid.ng-dirty{
+    background-color: lightgreen;
+}
+button[disabled] {
+	border: 1px solid #999;
+	background-color: #ddd;
+}
+
+h2{
+    font-size: 50px;
+    color: blue;
+    text-shadow: 1px 0px 0px #686868, 1px 1px 0px #686868, 0px 1px 0px #686868, 
+    -1px 1px 0px #686868, -1px 0px 0px #686868, -1px -1px 0px #686868, 
+    0px -1px 0px #686868, 1px -1px 0px #686868, 1px 4px 5px #aeaeae;
+}
+</style>
+
 </head>
-<body id="page-top" class="index" ng-class="largeContent?'index':'index bshort'">
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom" style="position: relative;">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <a class="navbar-brand" href="#page-top">Revature</a>
-                <a href="#!/login" class="btn btn-primary" style="position: absolute; right: 0;" ng-show="showLogout">Logout</a>
-            </div>          
+
+<body ng-app="ParasolApp" ng-controller="ModuleRegistrationController">
+<!-- Nav tabs code to be pasted in to project-->
+<div class="col-md-6 col-md-offset-3" >
+    <h2>Module Registration</h2>
+    <form name="myForm" novalidate ng-submit="vm.registerModule()" role="form">
+        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
+            <label for="url">URL address</label>
+            <input type="url" name="url" id="url" class="form-control" ng-model="vm.url" required />
+            <span class="error" ng-show="myForm.url.$dirty && myForm.url.$invalid" class="help-block">URL is required </span>
         </div>
-        <!-- /.container-fluid -->
-    </nav>
-        <div class="container">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div class="text-center" ng-class="{ 'alert': error, 'alert-success': error.type === 'success', 'alert-danger': error.type === 'error' }" ng-if="error" ng-bind="error.message"></div>
-                <div ng-view>
-                    <div class="middle">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <img class="img-responsive" src="revature_logo_1080.png" alt="">
-                                    <div class="intro-text">
-                                        <span class="name">Welcome</span>
-                                        <hr class="star-light">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
+            <label for="moduleName">Module Name</label>
+            <input type="text" name="moduleName" id="moduleName" class="form-control" ng-model="vm.moduleName" required />
+            <span class="error" ng-show="myForm.moduleName.$dirty && myForm.moduleName.$invalid " class="help-block">Module name is required </span>
         </div>
-     <!-- Footer -->
-    <footer class="text-center" ng-class="largeContent?'large':'short'">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>11730 Plaza America Dr #205
-                            <br>Reston, VA 20190</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Connect with us</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Some text</h3>
-                        <p>blah blah  blah</p>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" disabled>VPTech</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="">CFO</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" >COO</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" >CMO</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" >Content and Quality</label>
         </div>
-        <div class="footer-below">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; Revature 2017
-                    </div>
-                </div>
-            </div>
+        <div>
+            <label class="checkbox-inline"><input type="checkbox"  value="">Trainer</label>
+            <label class="checkbox-inline"><input type="checkbox"  value="">HR</label>
+            <label class="checkbox-inline"><input type="checkbox"  value="" >HR Director</label>
+            <label class="checkbox-inline"><input type="checkbox"  value="" >Recruiter</label>
+            <label class="checkbox-inline"><input type="checkbox"  value="" >Associate</label>
+            <label class="checkbox-inline"><input type="checkbox"  value="" >BDM</label>
         </div>
-    </footer>
-
-
-<!--     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="//code.angularjs.org/1.6.1/angular.min.js"></script>
-    <script src="//code.angularjs.org/1.6.1/angular-route.min.js"></script>
-    <script src="//code.angularjs.org/1.6.1/angular-cookies.min.js"></script> -->
-    <script src="webjars/jquery/3.1.1-1/jquery.min.js"></script>
-    <script src="webjars/angularjs/1.6.1/angular.min.js"></script>
-    <script src="webjars/angularjs/1.6.1/angular-route.min.js"></script>
-    <script src="webjars/angularjs/1.6.1/angular-cookies.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="bootstrap/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-
-    <!-- Local Javascript/Angular scripts -->
-    <script src="app.js"></script>
-    <script src="services/AuthenticationService.js"></script>
-    <script src="services/ErrorService.js"></script>
-    <script src="services/UserService.js"></script>
-
-    <!-- Angular Controllers -->
-    <script src="landing/landing.js"></script>
-    <script src="welcome/welcome.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
+        <br>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="myForm.$invalid || vm.dataLoading"  class="btn btn-primary">Register Module</button>
+        </div>
+    </form>
+</div> <!-- end of code to be pasted into project -->
 </body>
+
+
 </html>
