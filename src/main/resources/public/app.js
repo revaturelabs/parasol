@@ -28,6 +28,7 @@
             })
 
             .otherwise({ redirectTo: '/welcome' });
+        $locationProvider.html5Mode(true);
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
@@ -44,10 +45,16 @@
             // redirect to login page if not logged in and trying to access a restricted page
             $rootScope.showLogout = false;
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn)
+            var loggedIn = $location.search();
+            var queryLength = Object.getOwnPropertyNames(loggedIn).length === 1;
+            var queryContents = loggedIn.hasOwnProperty('token');
+            if (restrictedPage && (!queryLength || !queryContents))
             {
                 $location.path('/');
+            }
+            else
+            {
+            	AuthorizationSerivce.SetCredentials(loggedIn);
             }
             if($location.path() == "/welcome")
             {

@@ -11,8 +11,9 @@
 
         vm.buttons = buttonContent;
         vm.user = null;
-        vm.modules = ['first','second','third','fourth'];
-
+        vm.modules = [{name:'first',url:'www.google.com'},{name:'second',url:'www.bing.com'},{name:'third',url:'www.random.org'},{name:'fourth',url:'www.elgoog.com'}];
+        vm.hover = null;
+        
         initController();
 
         function initController()
@@ -23,11 +24,12 @@
 
         function buttonContent(tab)
         {
-        	$("li").each(function(){        		
+        	$("li.ng-scope").each(function(){
         		$(this).removeClass("active");
-        		if($(this) == tab)
+        		if($(this).attr('id') == tab.name)
         		{
         			$(this).addClass("active");
+        			//window.location.href=tab.url;        			
         		}
         	});
         }

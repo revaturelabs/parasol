@@ -34,22 +34,10 @@
                  });
         }
 
-        function SetCredentials(username, password) 
+        function SetCredentials(token) 
         {
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    password: password
-                }
-            };
-
             // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser;
-
-            // store user details in globals cookie that keeps user logged in for 1 day (or until they logout)
-            var cookieExp = new Date();
-            cookieExp.setDate(cookieExp.getDate() + 1);
-            $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
         }
 
         function ClearCredentials() {

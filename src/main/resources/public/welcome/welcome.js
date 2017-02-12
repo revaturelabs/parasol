@@ -24,12 +24,7 @@
             
             AuthenticationService.Login(function (response) 
             {
-                if (response.authenticated) 
-                {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } 
-                else
+                if (!response.authenticated) 
                 {
                     ErrorService.Error(response);
                     vm.dataLoading = false;
