@@ -31,8 +31,8 @@
         $locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
-    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window', 'AuthenticationService'];
+    function run($rootScope, $location, $cookies, $http, $timeout, $window, AuthenticationService) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -50,7 +50,7 @@
             var queryContents = loggedIn.hasOwnProperty('token');
             if (restrictedPage && (!queryLength || !queryContents))
             {
-                $location.path('/');
+                $location.path('/welcome');
             }
             else
             {
