@@ -6,6 +6,7 @@ package com.revature.parasol.controllers;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,14 +38,14 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
+    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
 
 	// Get the role and modules that the user is allowed to access
 	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
 	// ROLE OR MODULES
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
-
+	
 	JSONObject json = new JSONObject();
 	try {
 	    json.put("token", token);
@@ -55,17 +57,17 @@ public class LoginController {
 
 	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-	String forwardString = "https://dev.parasol.revature.pro?token=" + token;
 
 	resp.sendRedirect("https://dev.parasol.revature.pro?token=" + token);
 	
-	return forwardString;
     }
 
-    @RequestMapping(value = "/rolesandmodules")
+    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.GET)
     @ResponseBody
-    public String getRolesAndModules(String token) {
-
+    public String getRolesAndModules(HttpServletRequest req) {
+	System.out.println("Inside Roles and Modules");
+	String header = req.getHeader("Authorization");
+	System.out.println("The header is " + header);
 	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
 
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
