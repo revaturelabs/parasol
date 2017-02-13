@@ -5,8 +5,8 @@
         .module('ParasolApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', '$window', 'UserService'];
+    function AuthenticationService($http, $cookies, $rootScope, $timeout, $window, UserService) {
         var service = {};
 
         service.Login = Login;
@@ -21,13 +21,9 @@
             $http.get('auth/login')
                  .then(function (response) 
                  {
-                	//console.log("Response was good.");
-                	//console.log(response);
                     callback(response);
                  },
                  function errorCallback(response){
-                	 //console.log("Response was bad.");
-                 	//console.log(response);
                      var eResponse = {success: false, 
                      message: 'Login unsuccessful. Returned status ' + response.status};
                      callback(eResponse);
