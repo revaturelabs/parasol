@@ -57,7 +57,7 @@ public class LoginController {
 
 	String forwardString = "redirect:index.html" + "?token=" + token;
 
-	resp.sendRedirect("index.html" + "?token=" + token);
+	resp.sendRedirect("https://dev.parasol.revature.pro/index.html" + "?token=" + token);
 	
 	return forwardString;
     }
