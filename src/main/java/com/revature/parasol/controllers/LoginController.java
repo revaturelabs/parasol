@@ -6,6 +6,7 @@ package com.revature.parasol.controllers;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -13,10 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +34,9 @@ public class LoginController {
 
     @Autowired
     Force force;
+    
+    @Autowired
+    private TokenStore tokenstore;
 
     // @Autowired
     // RoleModuleServiceInterface roleModuleService;
@@ -43,7 +50,7 @@ public class LoginController {
 	// ROLE OR MODULES
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
-
+	
 	JSONObject json = new JSONObject();
 	try {
 	    json.put("token", token);
@@ -62,10 +69,11 @@ public class LoginController {
 	return forwardString;
     }
 
-    @RequestMapping(value = "/rolesandmodules")
+    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.POST)
     @ResponseBody
-    public String getRolesAndModules(String token) {
-
+    public String getRolesAndModules(HttpServletRequest req) {
+	String header = req.getHeader("Authorization");
+	System.out.println("the header is " + header);
 	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
 
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
