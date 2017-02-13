@@ -44,7 +44,7 @@
         {
             //Get the list of all modules the user has access to from the server
             //This might already have been given to us in the header
-            $http.post('/rolesandmodules')
+            $http.get('/rolesandmodules')
                 .success(function (response) {
                     vm.modules = response;
                 });

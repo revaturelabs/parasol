@@ -59,7 +59,6 @@
             }
             else if(!$rootScope.authorizing)
             {
-            	console.log($rootScope.authorizing);
             	$rootScope.authorizing = true;
             	$location.path('/authorization');
             }
