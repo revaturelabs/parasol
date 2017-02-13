@@ -11,16 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Marc
  *
  */
-@RestController
+@Controller
 @RequestMapping(value = "/auth")
 public class LoginController {
 
@@ -31,6 +31,7 @@ public class LoginController {
     // RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping(value = "/login")
+    @ResponseBody
     public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
 
 	// Get the role and modules that the user is allowed to access
@@ -49,8 +50,9 @@ public class LoginController {
 
 	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-	String forwardString = "forward:index.html" + "?token=" + token;
+	String forwardString = "redirect:index.html" + "?token=" + token;
 
+	
 	return forwardString;
     }
 
@@ -64,8 +66,8 @@ public class LoginController {
 		.getUserAuthentication().getDetails();
 	String userUrl = (String) userAuthDetails.get("sub");
 
-	//String role = roleModuleService.getRoleForUser(userUrl, token);
-	//Object moduleList = roleModuleService.getModulesForRole(role);
+	// String role = roleModuleService.getRoleForUser(userUrl, token);
+	// Object moduleList = roleModuleService.getModulesForRole(role);
 
 	userAuthDetails.put("role", "role");
 	userAuthDetails.put("modules", "moduleList");
