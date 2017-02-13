@@ -33,7 +33,7 @@
         function SetCredentials(token) 
         {
             // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.token;
         }
 
         function ClearCredentials() {
