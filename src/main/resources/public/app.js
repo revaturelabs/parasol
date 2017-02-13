@@ -21,12 +21,18 @@
                 templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
+            .when('/moduleRegistration', {
+                controller: 'ModuleRegistrationController',
+                templateUrl: 'moduleRegistration/moduleRegistration.html',
+                controllerAs: 'vm'
+            })
 
             .otherwise({ redirectTo: '/welcome' });
+        $locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
-    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window', 'AuthenticationService'];
+    function run($rootScope, $location, $cookies, $http, $timeout, $window, AuthenticationService) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -40,9 +46,15 @@
             $rootScope.showLogout = false;
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
             var loggedIn = $location.search();
-            if (restrictedPage && !loggedIn)
+            var queryLength = Object.getOwnPropertyNames(loggedIn).length === 1;
+            var queryContents = loggedIn.hasOwnProperty('token');
+            if (restrictedPage && (!queryLength || !queryContents))
             {
                 $location.path('/welcome');
+            }
+            else
+            {
+            	AuthorizationSerivce.SetCredentials(loggedIn);
             }
             if($location.path() == "/welcome")
             {
