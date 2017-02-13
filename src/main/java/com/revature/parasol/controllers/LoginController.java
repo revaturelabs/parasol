@@ -38,7 +38,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
+    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
 
 	// Get the role and modules that the user is allowed to access
 	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
@@ -57,11 +57,9 @@ public class LoginController {
 
 	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-	String forwardString = "https://dev.parasol.revature.pro?token=" + token;
 
 	resp.sendRedirect("https://dev.parasol.revature.pro?token=" + token);
 	
-	return forwardString;
     }
 
     @RequestMapping(value = "/rolesandmodules", method=RequestMethod.POST)
