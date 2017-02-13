@@ -5,8 +5,8 @@
         .module('ParasolApp')
         .controller('LandingController', LandingController);
 
-    LandingController.$inject = ['UserService', '$rootScope', '$http'];
-    function LandingController(UserService, $rootScope, $http) {
+    LandingController.$inject = ['UserService', 'ErrorService', '$rootScope', '$http'];
+    function LandingController(UserService, ErrorService, $rootScope, $http) {
         var vm = this;
 
         vm.buttons = buttonContent;
@@ -49,8 +49,7 @@
                     vm.modules = response;
                 },
                 function errorCallback(response){
-                     var eResponse = {success: false, 
-                     message: 'Login unsuccessful. Returned status ' + response.status};
+                	 ErrorService.Error('Module retrieval unsuccessful. Returned status ' + response);
                });
         }
     }
