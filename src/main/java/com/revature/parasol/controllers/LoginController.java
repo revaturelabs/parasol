@@ -58,7 +58,7 @@ public class LoginController {
 	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
-	resp.sendRedirect("https://dev.parasol.revature.pro?token=" + token);
+	resp.sendRedirect("https://dev.parasol.revature.pro/?token=" + token);
 	
     }
 
