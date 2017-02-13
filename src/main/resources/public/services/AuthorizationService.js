@@ -12,17 +12,17 @@
 
         vm.authorize = authorize;
 
-//        (function initController() {
-//            // Clear credentials upon return to login screen
-//            //**This may not be needed but is left here for historical context**
-//        	//AuthenticationService.ClearCredentials();
-//        })();
+        (function initController() {
+            // Clear credentials upon return to login screen
+            //**This may not be needed but is left here for historical context**
+        	//AuthenticationService.ClearCredentials();
+        	authorize();
+        })();
 
         function authorize() 
         {	
             AuthenticationService.SetCredentials($location.search());
-            $rootScope.authorizing = false;
-            location.path($rootScope.requestedPath);
+            $location.path($rootScope.requestedPath);
         }
     }
 })();

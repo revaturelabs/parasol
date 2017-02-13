@@ -5,8 +5,8 @@
         .module('ParasolApp')
         .controller('LandingController', LandingController);
 
-    LandingController.$inject = ['UserService', '$rootScope'];
-    function LandingController(UserService, $rootScope) {
+    LandingController.$inject = ['UserService', 'ErrorService', '$rootScope', '$http'];
+    function LandingController(UserService, ErrorService, $rootScope, $http) {
         var vm = this;
 
         vm.buttons = buttonContent;
@@ -45,9 +45,12 @@
             //Get the list of all modules the user has access to from the server
             //This might already have been given to us in the header
             $http.get('/rolesandmodules')
-                .success(function (response) {
+                .then(function (response) {
                     vm.modules = response;
-                });
+                },
+                function errorCallback(response){
+                	 ErrorService.Error('Module retrieval unsuccessful. Returned status ' + response);
+               });
         }
     }
 })();

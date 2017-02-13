@@ -60,6 +60,7 @@
             else if(!$rootScope.authorizing)
             {
             	$rootScope.authorizing = true;
+            	$rootScope.requestedPath = $location.path();
             	$location.path('/authorization');
             }
             if($location.path() == "/welcome")
