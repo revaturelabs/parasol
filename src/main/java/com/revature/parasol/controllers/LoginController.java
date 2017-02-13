@@ -3,7 +3,11 @@
  */
 package com.revature.parasol.controllers;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,7 +35,8 @@ public class LoginController {
     // RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping(value = "/login")
-    public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) {
+    public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
+	    HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 	// Get the role and modules that the user is allowed to access
 	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
@@ -51,6 +56,7 @@ public class LoginController {
 
 	String forwardString = "forward:index.html" + "?token=" + token;
 
+	response.sendRedirect("https://dev.parasol.revature.pro/index.html?token=" + token);
 	return forwardString;
     }
 
@@ -64,8 +70,8 @@ public class LoginController {
 		.getUserAuthentication().getDetails();
 	String userUrl = (String) userAuthDetails.get("sub");
 
-	//String role = roleModuleService.getRoleForUser(userUrl, token);
-	//Object moduleList = roleModuleService.getModulesForRole(role);
+	// String role = roleModuleService.getRoleForUser(userUrl, token);
+	// Object moduleList = roleModuleService.getModulesForRole(role);
 
 	userAuthDetails.put("role", "role");
 	userAuthDetails.put("modules", "moduleList");
