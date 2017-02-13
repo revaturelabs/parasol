@@ -21,6 +21,11 @@
                 templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
+            .when('/authorization', {
+                controller: 'AuthorizationController',
+                templateUrl: 'services/AuthorizationService.html',
+                controllerAs: 'vm'
+            })
             .when('/moduleRegistration', {
                 controller: 'ModuleRegistrationController',
                 templateUrl: 'moduleRegistration/moduleRegistration.html',
@@ -31,8 +36,8 @@
         $locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window', 'AuthenticationService'];
-    function run($rootScope, $location, $cookies, $http, $timeout, $window, AuthenticationService) 
+    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
+    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
     {
         // keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
@@ -52,9 +57,10 @@
             {
                 $location.path('/welcome');
             }
-            else
+            else if(!$rootScope.authorizing)
             {
-            	AuthorizationSerivce.SetCredentials(loggedIn);
+            	$rootScope.authorizing = true;
+            	$location.path('/authorization');
             }
             if($location.path() == "/welcome")
             {
