@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DefaultRoutingController {
-    @RequestMapping(value = {"/", "/moduleregistration", "/welcome"} )
+    @RequestMapping(value = {"/", "/moduleregistration"} )
     public String routeToHome(){
         return "forward:index.html";
     }
