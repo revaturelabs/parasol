@@ -32,6 +32,7 @@ public class LoginController {
     // RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping(value = "/login")
+    @ResponseBody
     public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) throws IOException {
 
 	// Get the role and modules that the user is allowed to access
