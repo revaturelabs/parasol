@@ -36,7 +36,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     public String loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
-	    HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    HttpServletResponse response) throws IOException {
 
 	// Get the role and modules that the user is allowed to access
 	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
