@@ -62,11 +62,12 @@ public class LoginController {
 	
     }
 
-    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.POST)
+    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.GET)
     @ResponseBody
     public String getRolesAndModules(HttpServletRequest req) {
+	System.out.println("Inside Roles and Modules");
 	String header = req.getHeader("Authorization");
-	System.out.println("the header is " + header);
+	System.out.println("The header is " + header);
 	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
 
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
