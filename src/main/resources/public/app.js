@@ -28,27 +28,22 @@
             })
 
             .otherwise({ redirectTo: '/welcome' });
+        //$locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
-    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
+    run.$inject = ['$rootScope', '$window', '$location', '$timeout', '$http'];
+    function run($rootScope, $window, $location, $timeout, $http) 
     {
-        // keep user logged in after page refresh
-        $rootScope.globals = $cookies.getObject('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
-        }
-
         $rootScope.$on('$locationChangeStart', function (event, next, current) 
         {
             // redirect to login page if not logged in and trying to access a restricted page
             $rootScope.showLogout = false;
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn)
+            if (restrictedPage && !$rootScope.authenticated)
             {
-                $location.path('/');
-            }
+            	$location.path('/welcome');
+            }          
+            
             if($location.path() == "/welcome")
             {
                 $rootScope.showLogout = false;

@@ -5,29 +5,31 @@
         .module('ParasolApp')
         .controller('LandingController', LandingController);
 
-    LandingController.$inject = ['UserService', '$rootScope'];
-    function LandingController(UserService, $rootScope) {
+    LandingController.$inject = ['UserService', 'ErrorService', '$rootScope', '$http'];
+    function LandingController(UserService, ErrorService, $rootScope, $http) {
         var vm = this;
 
         vm.buttons = buttonContent;
         vm.user = null;
-        vm.modules = ['first','second','third','fourth'];
-
+        vm.modules = [{name:'Assign Force',url:'redirect:www.google.com'},{name:'Housing App',url:'www.bing.com'},{name:'Rideshare App',url:'www.random.org'},{name:'Bootcamp Manager',url:'www.elgoog.com'}];
+        vm.hover = null;
+        
         initController();
 
         function initController()
         {
-            getUser();
+            //getUser();
             getModules();
         }
 
         function buttonContent(tab)
         {
-        	$("li").each(function(){        		
+        	$("li.ng-scope").each(function(){
         		$(this).removeClass("active");
-        		if($(this) == tab)
+        		if($(this).attr('id') == tab.name)
         		{
         			$(this).addClass("active");
+        			//window.location.href=tab.url;        			
         		}
         	});
         }
@@ -42,6 +44,8 @@
         {
             //Get the list of all modules the user has access to from the server
             //This might already have been given to us in the header
+        	vm.modules = {{$rootScope.moduleResponse}};
+
         }
     }
 })();

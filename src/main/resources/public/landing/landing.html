@@ -1,38 +1,14 @@
 <!-- Nav tabs -->
                 <ul class="nav nav-justified">
-                    <li role="presentation" class="" ng-repeat="mod in vm.modules">
-                        <a>
-                            <img class="img-circle" src="modulesButton.jpg" ng-click="vm.buttons(mod)" />
+                    <li role="presentation" class="" ng-repeat="mod in vm.modules" id="{{mod.name}}">
+                        <a href="{{mod.url}}" ng-mouseover="vm.hover=mod" ng-mouseleave="vm.hover=null">
+                            <i class="fa fa-calendar-plus-o fa-4x" ng-click="vm.buttons(mod)"/>
                         </a>
                     </li>
                 </ul>
         
            
                 <!-- Tab panes -->
-                <div class="tab-content" id="tabs-collapse">            
-                    <div role="tabpanel" class="tab-pane fade in active" id="first">
-                        <div class="tab-inner">                    
-                            <p align="center" class="lead">Rogue Module</p>
-                        </div>
-                    </div>
-                    
-                    <div role="tabpanel" class="tab-pane fade" id="second">
-                        <div class="tab-inner">
-                            <p align="center" class="lead">A New Module</p>
-                            
-                        </div>
-                    </div>
-                    
-                    <div role="tabpanel" class="tab-pane fade" id="third">
-                        <div class="tab-inner">
-                            <p align="center" class="lead">The Module Strikes Back</p>
-                          
-                        </div> 
-                    </div>
-                    
-                    <div role="tabpanel" class="tab-pane fade" id="fourth">
-                        <div class="tab-inner">
-                            <p align="center" class="lead">Revenge of the Module</p>
-                        </div>
-                    </div>
+                <div ng-show="vm.hover">            
+   					<p align="center" class="lead">{{vm.hover.name}}</p>
                 </div>

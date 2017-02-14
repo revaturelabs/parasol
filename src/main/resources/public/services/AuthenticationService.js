@@ -5,8 +5,8 @@
         .module('ParasolApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', '$window', 'UserService'];
+    function AuthenticationService($http, $cookies, $rootScope, $timeout, $window, UserService) {
         var service = {};
 
         service.Login = Login;
@@ -15,45 +15,14 @@
 
         return service;
 
-        function Login(callback) 
+        function Login() 
         {          
             $window.location.href = '/auth/login';
-            $http.get('auth/login')
-                 .then(function (response) 
-                 {
-                	//console.log("Response was good.");
-                	//console.log(response);
-                    callback(response);
-                 },
-                 function errorCallback(response){
-                	 //console.log("Response was bad.");
-                 	//console.log(response);
-                     var eResponse = {success: false, 
-                     message: 'Login unsuccessful. Returned status ' + response.status};
-                     callback(eResponse);
-                 });
-        }
-
-        function SetCredentials(username, password) 
-        {
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    password: password
-                }
-            };
-
-            // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser;
-
-            // store user details in globals cookie that keeps user logged in for 1 day (or until they logout)
-            var cookieExp = new Date();
-            cookieExp.setDate(cookieExp.getDate() + 1);
-            $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
         }
 
         function ClearCredentials() {
             $rootScope.globals = {};
+            $rootScope.authenticated = false;
             $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
         }
