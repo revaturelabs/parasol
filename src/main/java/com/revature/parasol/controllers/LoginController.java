@@ -42,10 +42,11 @@ public class LoginController {
     public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
 	    HttpServletResponse resp) throws IOException {
 
+	System.out.println("Inside of login user...");
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
 	
-	System.out.println(details);
+	System.out.println("Details: " + details);
 	
 	
 	JSONObject json = new JSONObject();
