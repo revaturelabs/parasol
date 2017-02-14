@@ -32,9 +32,12 @@
                     method: 'GET',
                     url: 'auth/login'
                  }).then(function (success){
+                	 console.log("Success!");
                 	 self.user = success.userAuthentication.details.modules;
                      self.authenticated = true;
                  },function (error){
+                	 console.log("Inside error");
+                	 console.log(error);
                 	 self.user = "N/A";
                      self.authenticated = false;
                  });
