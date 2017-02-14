@@ -15,29 +15,14 @@
 
         return service;
 
-        function Login(callback) 
+        function Login() 
         {          
             $window.location.href = '/auth/login';
-//            $http.get('auth/login')
-//                 .then(function (response) 
-//                 {
-//                    callback(response);
-//                 },
-//                 function errorCallback(response){
-//                     var eResponse = {success: false, 
-//                     message: 'Login unsuccessful. Returned status ' + response.status};
-//                     callback(eResponse);
-//                 });
-        }
-
-        function SetCredentials(token) 
-        {
-            // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.token;
         }
 
         function ClearCredentials() {
             $rootScope.globals = {};
+            $rootScope.authenticated = false;
             $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
         }
