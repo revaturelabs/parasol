@@ -6,6 +6,8 @@
 
             $scope.url = null;
             $scope.moduleName = null;
+            $scope.dataLoading = false;
+
 
             $scope.postdata = function (url, moduleName) {
                     var data = {
@@ -17,8 +19,11 @@
                    
 
                 };
+
+                // assign true to dataLoading variable
+                dataLoading = true;
             
-                console.log(url, moduleName);
+                console.log(url, moduleName, dataLoading);
             //Call the services
 
             $http.post('moduleRegistration', JSON.stringify(data)).then(function (response) {
@@ -39,7 +44,7 @@
 
             });
 
-};
+    };
 
 });
 
