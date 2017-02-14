@@ -31,8 +31,8 @@
         //$locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout', '$window'];
-    function run($rootScope, $location, $cookies, $http, $timeout, $window) 
+    run.$inject = ['$rootScope', '$window', '$location', '$timeout', '$http'];
+    function run($rootScope, $window, $location, $timeout, $http) 
     {
         $rootScope.$on('$locationChangeStart', function (event, next, current) 
         {
@@ -41,19 +41,21 @@
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
             if (restrictedPage && !$rootScope.authenticated)
             {
-            	 $http.get('rolesandmodules').success(function(response){
-                 	if(response){
-                 		$rootScope.authenticated = true;
-                 	} 
-                 	else{
-                 		$rootScope.authenticated = false;
-               		    $location.path('/welcome');
-                 	}
-                 }).error(function(){
-                 	$rootScope.authenticated = false;
-                 	$location.path('/welcome');
-                 });
+            	$http.get('rolesandmodules');
             }
+//            	 $http.get('rolesandmodules').then(function(response){
+//                 	if(response){
+//                 		$rootScope.authenticated = true;
+//                 	} 
+//                 	else{
+//                 		$rootScope.authenticated = false;
+//               		    $location.path('/welcome');
+//                 	}
+//                 }).error(function(){
+//                 	$rootScope.authenticated = false;
+//                 	$location.path('/welcome');
+//                 	console.log("This was an error");
+//                 });            
             
             if($location.path() == "/welcome")
             {
