@@ -18,19 +18,19 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableOAuth2Sso
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-    	web.ignoring().antMatchers("/webjars/**", "/bootstrap/**", "/styling/**", "/landing/**","/welcome/**", "/services/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//    	web.ignoring().antMatchers("/webjars/**", "/bootstrap/**", "/styling/**", "/landing/**","/welcome/**", "/services/**");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/login", "/app.js", "/**.jpg", "/**.png", "/**.js")
-				.permitAll()
+				.antMatchers("/", "/login", "/webjars/**")
+					.permitAll()
 				.anyRequest()
-				.authenticated()
+					.authenticated()
 				.and()
 			.logout()
 				.logoutSuccessUrl("/")

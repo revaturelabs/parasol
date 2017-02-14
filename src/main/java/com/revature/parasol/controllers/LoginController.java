@@ -4,6 +4,7 @@
 package com.revature.parasol.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.LinkedHashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,35 +23,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.revature.parasol.domain.service.RoleModuleServiceInterface;
+
 /**
- * @author Marc
+ * @author Marc Kuniansky
  *
  */
 @Controller
 @RequestMapping(value = "/auth")
 public class LoginController {
 
-    @Autowired
-    Force force;
 
-    // @Autowired
-    // RoleModuleServiceInterface roleModuleService;
+    @Autowired
+    RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
+    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
+	    HttpServletResponse resp) throws IOException {
 
-	// Get the role and modules that the user is allowed to access
-	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
-	// ROLE OR MODULES
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
+	
+	System.out.println(details);
+	
 	
 	JSONObject json = new JSONObject();
 	try {
 	    json.put("token", token);
 	} catch (JSONException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	    Logger.getRootLogger().error(e);
 	}
@@ -64,33 +65,23 @@ public class LoginController {
 
     @RequestMapping(value = "/rolesandmodules", method=RequestMethod.GET)
     @ResponseBody
-    public String getRolesAndModules(HttpServletRequest req) {
-	System.out.println("Inside Roles and Modules");
-	String header = req.getHeader("Authorization");
-	System.out.println("The header is " + header);
-	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
+    public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
 
-	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
+	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
-	//String userUrl = (String) userAuthDetails.get("sub");
+	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+	
+	String token = details.getTokenValue();
+	String userUrl = (String) userAuthDetails.get("sub");
 
-	// String role = roleModuleService.getRoleForUser(userUrl, token);
-	// Object moduleList = roleModuleService.getModulesForRole(role);
+	String role = roleModuleService.getRoleForUser(userUrl, token);
+	Object moduleList = roleModuleService.getModulesForRole(role);
 
-	userAuthDetails.put("role", "role");
-	userAuthDetails.put("modules", "moduleList");
+	userAuthDetails.put("role", role);
+	userAuthDetails.put("modules", moduleList);
 
-	JSONObject json = new JSONObject();
-	try {
-	    json.put("role", "role");
-	    json.put("modules", "moduleList");
-	} catch (JSONException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    Logger.getRootLogger().error(e);
-	}
-
-	return json.toString();
+	return userAuthDetails;
+	
     }
 
 }
