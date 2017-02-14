@@ -29,12 +29,12 @@
 					}).then(function(success) {
 						console.log("Success!");
 						console.log(success);
-						self.user = success.userAuthentication.details.modules;
+						//self.user = success.userAuthentication.details.modules;
 						self.authenticated = true;
+						console.log(self.authenticated)
 					}, function(error) {
 						console.log("Inside error");
 						console.log(error);
-						self.user = "N/A";
 						self.authenticated = false;
 					});
 				});
