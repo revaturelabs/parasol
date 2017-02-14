@@ -9,7 +9,7 @@
 </head>
 <body ng-app="ParasolApp" ng-controller="home">
     <div class="container" ng-show="!authenticated">
-        Salesforce: <button type="button" href="/auth/sflogin" class="btn btn-primary btn-lg btn3d">Login</button>
+        <a href="/auth/sflogin">Salesforce: </a> <button type="button" href="/auth/sflogin" class="btn btn-primary btn-lg btn3d">Login</button>
     </div>
     <div class="container" ng-show="authenticated">
         Logged in as: <span ng-bind="user.name"></span>
