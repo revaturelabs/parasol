@@ -71,7 +71,10 @@ public class LoginController {
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	
 	String token = details.getTokenValue();
-	String userUrl = (String) userAuthDetails.get("sub");
+	System.out.println("Token: " + token);
+	String userId = (String) userAuthDetails.get(" user_id");
+	System.out.println("User id: " + userId);
+	
 
 	//String role = roleModuleService.getRoleForUser(userUrl, token);
 	//Object moduleList = roleModuleService.getModulesForRole(role);
