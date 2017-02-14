@@ -4,19 +4,14 @@
 package com.revature.parasol.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +29,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) throws IOException {
+    public OAuth2Authentication loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) throws IOException {
 
 	System.out.println("Inside of login user...");
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
@@ -44,13 +39,10 @@ public class LoginController {
 	
 	LinkedHashMap<Object, Object> userAuthDetails = getRolesAndModules(authentication);
 	System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
-	
 
-	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
+	System.out.println("Returned object: " + authentication.toString());
 	//resp.sendRedirect("https://dev.parasol.revature.pro/?token=" + token);
-	
+	return authentication;
     }
 
     public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
@@ -72,8 +64,13 @@ public class LoginController {
 	//String role = roleModuleService.getRoleForUser(userUrl, token);
 	//Object moduleList = roleModuleService.getModulesForRole(role);
 
-	userAuthDetails.put("role", "role");
-	userAuthDetails.put("modules", "moduleList");
+	HashMap<String, String> modules = new HashMap<String, String>();
+	modules.put("Google", "https://www.google.com/");
+	modules.put("Reddit", "https://www.reddit.com/");
+	
+	
+	userAuthDetails.put("role", "admin");
+	userAuthDetails.put("modules", modules);
 
 	return userAuthDetails;
 	
