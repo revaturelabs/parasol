@@ -1,39 +1,52 @@
-(function () {
-    'use strict';
+
 
     angular
         .module('ParasolApp', [])
-        .controller('ModuleRegistrationController', ModuleRegistrationController);
-     // injections go here
-    ModuleRegistrationController.$inject = ['$location'];
-    function ModuleRegistrationController($location) 
-    {
-        var vm = this;
+        .controller('ModuleRegistrationController', function($scope, $http){
+
+            $scope.url = null;
+            $scope.moduleName = null;
+
+            $scope.postdata = function (url, moduleName) {
+                    var data = {
+
+                    url: url,
+
+                    ModuleName: moduleName
+
+                   
+
+                };
+            
+                console.log(url, moduleName);
+            //Call the services
+
+            $http.post('moduleRegistration', JSON.stringify(data)).then(function (response) {
+
+                if (response.data)
+
+                    $scope.msg = "Post Data Submitted Successfully!";
+
+                }, function (response) {
+
+                    $scope.msg = "Service not Exists";
+
+                    $scope.statusval = response.status;
+
+                    $scope.statustext = response.statusText;
+
+                    $scope.headers = response.headers();
+
+            });
+
+};
+
+});
+
+
 
         
-
-        (function initController() {
-            // anything I need controller to do on load
-            
-        })();
-
-        function registerModule() 
-        {
-            //Prevent multiple submissions
-            vm.dataLoading = true;
-            AuthenticationService.Login(function (response) 
-            {
-                if (response.success) 
-                {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } 
-                else
-                {
-                    ErrorService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
-        }
-    }
-})();
+        
+       
+     
+    
