@@ -34,8 +34,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
-	    HttpServletResponse resp) throws IOException {
+    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication) throws IOException {
 
 	System.out.println("Inside of login user...");
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
@@ -44,20 +43,13 @@ public class LoginController {
 	System.out.println("Details: " + details);
 	
 	LinkedHashMap<Object, Object> userAuthDetails = getRolesAndModules(authentication);
-	System.out.println("User details after additions: " + userAuthDetails);
+	System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
 	
-	JSONObject json = new JSONObject();
-	try {
-	    json.put("token", token);
-	} catch (JSONException e) {
-	    e.printStackTrace();
-	    Logger.getRootLogger().error(e);
-	}
 
 	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
-	resp.sendRedirect("https://dev.parasol.revature.pro/?token=" + token);
+	//resp.sendRedirect("https://dev.parasol.revature.pro/?token=" + token);
 	
     }
 
