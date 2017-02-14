@@ -13,7 +13,6 @@
         vm.login = login;
 
         (function initController() {
-            // Clear credentials upon return to login screen
             AuthenticationService.ClearCredentials();
         })();
 
@@ -22,14 +21,7 @@
             //Prevent multiple submissions
             vm.dataLoading = true;
             
-            AuthenticationService.Login(function (response) 
-            {
-                if (!response.authenticated) 
-                {
-                    ErrorService.Error(response);
-                    vm.dataLoading = false;
-                }
-            });
+            AuthenticationService.Login();
         }
     }
 })();

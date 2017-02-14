@@ -15,19 +15,14 @@
 
         return service;
 
-        function Login(callback) 
+        function Login() 
         {          
             $window.location.href = '/auth/login';
         }
 
-        function SetCredentials(token) 
-        {
-            // set default auth header for http requests
-            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token.token;
-        }
-
         function ClearCredentials() {
             $rootScope.globals = {};
+            $rootScope.authenticated = false;
             $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
         }
