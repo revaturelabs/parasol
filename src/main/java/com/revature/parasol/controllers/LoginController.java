@@ -43,7 +43,8 @@ public class LoginController {
 	
 	System.out.println("Details: " + details);
 	
-	getRolesAndModules(authentication);
+	LinkedHashMap<Object, Object> userAuthDetails = getRolesAndModules(authentication);
+	System.out.println("User details after additions: " + userAuthDetails);
 	
 	JSONObject json = new JSONObject();
 	try {
@@ -79,8 +80,8 @@ public class LoginController {
 	//String role = roleModuleService.getRoleForUser(userUrl, token);
 	//Object moduleList = roleModuleService.getModulesForRole(role);
 
-	//userAuthDetails.put("role", "role");
-	//userAuthDetails.put("modules", "moduleList");
+	userAuthDetails.put("role", "role");
+	userAuthDetails.put("modules", "moduleList");
 
 	return userAuthDetails;
 	
