@@ -72,7 +72,7 @@ public class LoginController {
 	
 	String token = details.getTokenValue();
 	System.out.println("Token: " + token);
-	String userId = (String) userAuthDetails.get(" user_id");
+	String userId = (String) userAuthDetails.get("user_id");
 	System.out.println("User id: " + userId);
 	
 
