@@ -6,13 +6,11 @@ package com.revature.parasol.controllers;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -23,34 +21,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @author Marc
+ * @author Marc Kuniansky
  *
  */
 @Controller
 @RequestMapping(value = "/auth")
 public class LoginController {
 
-    @Autowired
-    Force force;
 
-    // @Autowired
-    // RoleModuleServiceInterface roleModuleService;
+    //@Autowired
+    //RoleModuleServiceInterface roleModuleService;
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication, HttpServletResponse resp) throws IOException {
+    public void loginUser(@RequestParam(required = false) String code, OAuth2Authentication authentication,
+	    HttpServletResponse resp) throws IOException {
 
-	// Get the role and modules that the user is allowed to access
-	// I THINK ALL OF THIS NEEDS TO GO ANYWHERE WHERE YOU NEED TO GET THE
-	// ROLE OR MODULES
+	System.out.println("Inside of login user...");
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	String token = details.getTokenValue();
+	
+	System.out.println("Details: " + details);
+	
+	getRolesAndModules(authentication);
 	
 	JSONObject json = new JSONObject();
 	try {
 	    json.put("token", token);
 	} catch (JSONException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	    Logger.getRootLogger().error(e);
 	}
@@ -62,35 +60,30 @@ public class LoginController {
 	
     }
 
-    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.GET)
-    @ResponseBody
-    public String getRolesAndModules(HttpServletRequest req) {
+    public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
+
 	System.out.println("Inside Roles and Modules");
-	String header = req.getHeader("Authorization");
-	System.out.println("The header is " + header);
-	OAuth2Authentication principal = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
-
-	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) principal
+	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
-	//String userUrl = (String) userAuthDetails.get("sub");
+	System.out.println("User details: " + userAuthDetails.toString());
+	
+	
+	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+	
+	String token = details.getTokenValue();
+	System.out.println("Token: " + token);
+	String userId = (String) userAuthDetails.get("user_id");
+	System.out.println("User id: " + userId);
+	
 
-	// String role = roleModuleService.getRoleForUser(userUrl, token);
-	// Object moduleList = roleModuleService.getModulesForRole(role);
+	//String role = roleModuleService.getRoleForUser(userUrl, token);
+	//Object moduleList = roleModuleService.getModulesForRole(role);
 
-	userAuthDetails.put("role", "role");
-	userAuthDetails.put("modules", "moduleList");
+	//userAuthDetails.put("role", "role");
+	//userAuthDetails.put("modules", "moduleList");
 
-	JSONObject json = new JSONObject();
-	try {
-	    json.put("role", "role");
-	    json.put("modules", "moduleList");
-	} catch (JSONException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	    Logger.getRootLogger().error(e);
-	}
-
-	return json.toString();
+	return userAuthDetails;
+	
     }
 
 }
