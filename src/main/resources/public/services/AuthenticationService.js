@@ -18,16 +18,6 @@
         function Login(callback) 
         {          
             $window.location.href = '/auth/login';
-//            $http.get('auth/login')
-//                 .then(function (response) 
-//                 {
-//                    callback(response);
-//                 },
-//                 function errorCallback(response){
-//                     var eResponse = {success: false, 
-//                     message: 'Login unsuccessful. Returned status ' + response.status};
-//                     callback(eResponse);
-//                 });
         }
 
         function SetCredentials(token) 

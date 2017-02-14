@@ -1,7 +1,7 @@
 <!-- Nav tabs -->
                 <ul class="nav nav-justified">
                     <li role="presentation" class="" ng-repeat="mod in vm.modules" id="{{mod.name}}">
-                        <a ng-mouseover="vm.hover=mod" ng-mouseleave="vm.hover=null">
+                        <a href="{{mod.url}}" ng-mouseover="vm.hover=mod" ng-mouseleave="vm.hover=null">
                             <i class="fa fa-calendar-plus-o fa-4x" ng-click="vm.buttons(mod)"/>
                         </a>
                     </li>

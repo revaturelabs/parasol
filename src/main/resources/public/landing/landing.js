@@ -11,7 +11,7 @@
 
         vm.buttons = buttonContent;
         vm.user = null;
-        vm.modules = [{name:'first',url:'www.google.com'},{name:'second',url:'www.bing.com'},{name:'third',url:'www.random.org'},{name:'fourth',url:'www.elgoog.com'}];
+        vm.modules = [{name:'Assign Force',url:'redirect:www.google.com'},{name:'Housing App',url:'www.bing.com'},{name:'Rideshare App',url:'www.random.org'},{name:'Bootcamp Manager',url:'www.elgoog.com'}];
         vm.hover = null;
         
         initController();
