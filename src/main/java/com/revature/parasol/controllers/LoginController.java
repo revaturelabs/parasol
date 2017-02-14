@@ -36,6 +36,7 @@ public class LoginController {
 
 	System.out.println("Details: " + details);
 
+	getRolesAndModules(authentication);
 	System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
 
 	System.out.println("Returned object: " + authentication.toString());
