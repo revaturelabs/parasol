@@ -44,13 +44,8 @@
         {
             //Get the list of all modules the user has access to from the server
             //This might already have been given to us in the header
-            $http.get('/rolesandmodules')
-                .then(function (response) {
-                    vm.modules = response;
-                },
-                function errorCallback(response){
-                	 ErrorService.Error('Module retrieval unsuccessful. Returned status ' + response);
-               });
+        	vm.modules = {{$rootScope.moduleResponse}};
+
         }
     }
 })();

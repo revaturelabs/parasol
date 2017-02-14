@@ -41,21 +41,8 @@
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
             if (restrictedPage && !$rootScope.authenticated)
             {
-            	$http.get('rolesandmodules');
-            }
-//            	 $http.get('rolesandmodules').then(function(response){
-//                 	if(response){
-//                 		$rootScope.authenticated = true;
-//                 	} 
-//                 	else{
-//                 		$rootScope.authenticated = false;
-//               		    $location.path('/welcome');
-//                 	}
-//                 }).error(function(){
-//                 	$rootScope.authenticated = false;
-//                 	$location.path('/welcome');
-//                 	console.log("This was an error");
-//                 });            
+            	$location.path('/welcome');
+            }          
             
             if($location.path() == "/welcome")
             {
