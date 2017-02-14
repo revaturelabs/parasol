@@ -43,6 +43,7 @@ public class LoginController {
 	
 	System.out.println("Details: " + details);
 	
+	getRolesAndModules(authentication);
 	
 	JSONObject json = new JSONObject();
 	try {
@@ -59,12 +60,14 @@ public class LoginController {
 	
     }
 
-    @RequestMapping(value = "/rolesandmodules", method=RequestMethod.GET)
-    @ResponseBody
     public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
 
+	System.out.println("Inside Roles and Modules");
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
+	System.err.println("User details: " + userAuthDetails.toString());
+	
+	
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 	
 	String token = details.getTokenValue();
@@ -73,8 +76,8 @@ public class LoginController {
 	//String role = roleModuleService.getRoleForUser(userUrl, token);
 	//Object moduleList = roleModuleService.getModulesForRole(role);
 
-	userAuthDetails.put("role", "role");
-	userAuthDetails.put("modules", "moduleList");
+	//userAuthDetails.put("role", "role");
+	//userAuthDetails.put("modules", "moduleList");
 
 	return userAuthDetails;
 	
