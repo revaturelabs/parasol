@@ -65,7 +65,7 @@ public class LoginController {
 	System.out.println("Inside Roles and Modules");
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
-	System.err.println("User details: " + userAuthDetails.toString());
+	System.out.println("User details: " + userAuthDetails.toString());
 	
 	
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
