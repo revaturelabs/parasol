@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 /**
  * @author Marc Kuniansky
  *
@@ -92,6 +93,17 @@ public class LoginController {
 	System.out.println("Token: " + token);
 	String userId = (String) userAuthDetails.get("user_id");
 	System.out.println("User id: " + userId);
+
+
+	////////////////////////////////////////////////////////
+	//CODE BILLY ADDED TO GET SALESFORCE USER ROLE - BEGIN//
+	////////////////////////////////////////////////////////
+		
+
+	////////////////////////////////////////////////////////
+	//CODE BILLY ADDED TO GET SALESFORCE USER ROLE - END  //
+	////////////////////////////////////////////////////////
+
 
 	/* IMPLEMENT THE AUTOWIRED INTERFACE AND MAKE THE TWO METHODS BELOW WORK */
 	// String role = roleModuleService.getRoleForUser(userId, token);
