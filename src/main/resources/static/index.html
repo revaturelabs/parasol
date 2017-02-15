@@ -9,6 +9,7 @@
 	crossorigin="anonymous">
 <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/64f18c2489.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <style>
 .nav.nav-justified > li > a { position: relative; }
 .nav.nav-justified > li > a:hover,
@@ -40,6 +41,26 @@
         bottom: 0px;
     }  
 }
+
+form .ng-invalid.ng-dirty
+{
+    background-color: red;
+}
+form .ng-valid.ng-dirty{
+    background-color: lightgreen;
+}
+button[disabled] {
+	border: 1px solid #999;
+	background-color: #ddd;
+}
+
+h2{
+    font-size: 50px;
+    color: blue;
+    text-shadow: 1px 0px 0px #686868, 1px 1px 0px #686868, 0px 1px 0px #686868, 
+    -1px 1px 0px #686868, -1px 0px 0px #686868, -1px -1px 0px #686868, 
+    0px -1px 0px #686868, 1px -1px 0px #686868, 1px 4px 5px #aeaeae;
+}
 </style>
 </head>
 <body ng-app="ParasolApp" ng-controller="home">
@@ -61,7 +82,36 @@
         <div ng-show="hover">            
 			<p align="center" class="lead">{{hover.moduleName}}</p>
         </div>
-	</div>
+
+		<div class="col-md-6 col-md-offset-3" ng-show="!authenticated">
+    <h2>Module Registration</h2>
+               
+    <form name="myForm" novalidate ng-submit="postdata(url, moduleName)" role="form">
+        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
+            <label for="url">URL address</label>
+            <input type="text" name="url" id="url" class="form-control" ng-model="url" ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/" required />
+            <span class="error" ng-show="myForm.url.$dirty && myForm.url.$invalid" class="help-block">URL is required </span>
+        </div>
+        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
+            <label for="moduleName">Module Name</label>
+            <input type="text" name="moduleName" id="moduleName" class="form-control" ng-model="moduleName" required />
+            <span class="error" ng-show="myForm.moduleName.$dirty && myForm.moduleName.$invalid " class="help-block">Module name is required </span>
+        </div>
+        <div>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" disabled>Admin</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="">Trainer HR</label>
+            <label class="checkbox-inline"><input type="checkbox" checked value="" >Associate</label>
+            
+        <br>
+        <div class="form-actions">
+            <button type="submit" ng-disabled="myForm.$invalid || dataLoading"  class="btn btn-primary">Register Module</button>
+        </div>
+    </form>
+    {{msg}}
+    {{statusval}}
+    {{statustext}}
+    {{headers}}
+</div>
 	<script src="//code.angularjs.org/1.6.0/angular.min.js">
 		type = "text/javascript" >
 	</script>
@@ -73,6 +123,9 @@
 					self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
 			        self.setHover = setHover;
 					self.hover = null;
+					self.url = null;
+            		self.moduleName = null;
+            		self.dataLoading = false;
 					
 					$http({
 						method : 'GET',
@@ -98,6 +151,40 @@
 					{
 						self.hover = module;
 					}
+
+					function postdata (url, moduleName) {
+                    	var data = {
+
+                    	url: url,
+
+                    	ModuleName: moduleName
+
+                		};
+
+                	dataLoading = true;
+					
+					$http({
+						method : 'POST',
+						data: JSON.stringify(data),
+						url : 'moduleRegistration'
+					}).then(function(response) {
+					if (response.data)
+
+                    		self.msg = "Post Data Submitted Successfully!";
+
+                		}, function (response) {
+
+                    		self.msg = "Service not Exists";
+
+                    		self.statusval = response.status;
+
+                    		self.statustext = response.statusText;
+
+                    		self.headers = response.headers();
+
+            			});
+                	
+    				};
 				});
 	</script>
 </body>
