@@ -44,7 +44,13 @@
         {
             //Get the list of all modules the user has access to from the server
             //This might already have been given to us in the header
-        	vm.modules = {{$rootScope.moduleResponse}};
+        	$http.get('/rolesandmodules').then(function(response){
+	          	if(response){
+	          		vm.modules = response.userAuthentication.details.modules;
+	          	} 
+	          }).error(function(response){
+	          	vm.modules = response;
+	          });  
 
         }
     }
