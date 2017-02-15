@@ -27,6 +27,21 @@ public class LoginController {
     // @Autowired
     // RoleModuleServiceInterface roleModuleService;
 
+    /**
+     * When /auth/login is called, the user is automatically redirected to salesforce if no
+     * OAuth2Authentication object is detected by Spring Security. Once they have logged in, this method is run.
+     * <br>
+     * When this method is run, the user's role and the modules the can access are appended to the details
+     * of the Authentication Object and the whole authentication object is sent to the frontend.
+     * <br> 
+     * At a later date, the return value should be changed such that it only returns information relevant to
+     * the frontend, not the entire OAuth2Authentication object.
+     * <br> <br>
+     * @param code occasionally Salesforce will send this along, but it's not important.
+     * @param authentication
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/login")
     @ResponseBody
     public OAuth2Authentication loginUser(@RequestParam(required = false) String code,
@@ -48,6 +63,16 @@ public class LoginController {
 	return authentication;
     }
 
+    /**
+     * Gets the role and accessible modules for the user. 
+     * <br> <br>
+     * This is an important step in logging the user in. The user need to have access to modules based on
+     * the role they have in the database. The role and modules therefore need to be passed to the frontend 
+     * and processed in a way which allows the user to navigate them.
+     * <br> <br>
+     * @param authentication an OAuth2Authentication object, the user's authentication
+     * @return
+     */
     public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
 
 	System.out.println("Inside Roles and Modules");
