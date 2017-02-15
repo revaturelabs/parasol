@@ -48,10 +48,10 @@
 		<button type="button" ng-click="toSalesforce()"
 			class="btn btn-primary btn-lg btn3d">Login</button>
 	</div>
-	<div class="container" ng-show="authenticated">
+	<div class="container" ng-show="!authenticated">
 		<ul class="nav nav-justified">
-        	<li role="presentation" class="" ng-repeat="mod in modules" id="{{mod.name}}">
-        		<a href="{{mod.url}}" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)">
+        	<li role="presentation" class="" ng-repeat="mod in modules" id="{{mod.moduleName}}">
+        		<a href="{{mod.moduleURL}}" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)">
                 	<i class="fa fa-calendar-plus-o fa-4x"></i>
         		</a>
             </li>
@@ -59,7 +59,7 @@
            
         <!-- Tab panes -->
         <div ng-show="hover">            
-			<p align="center" class="lead">{{hover.name}}</p>
+			<p align="center" class="lead">{{hover.moduleName}}</p>
         </div>
 	</div>
 	<script src="//code.angularjs.org/1.6.0/angular.min.js">
@@ -70,7 +70,7 @@
 				function($scope, $http, $location, $window) {
 					var self = $scope;
 					self.toSalesforce = toSalesforce;
-					self.modules = [{name:'Assign Force',url:'http://www.google.com'},{name:'Housing App',url:'http://www.bing.com'},{name:'Rideshare App',url:'http://www.random.org'},{name:'Bootcamp Manager',url:'http://www.elgoog.com'}];
+					self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
 			        self.setHover = setHover;
 					self.hover = null;
 					
@@ -79,8 +79,8 @@
 						url : 'auth/login'
 					}).then(function(success) {
 						console.log("Success!");
-						console.log(success);
-						//self.user = success.userAuthentication.details.modules;
+						console.log(success.data.userAuthentication.details.modules);
+						self.modules = success.data.userAuthentication.details.modules;
 						self.authenticated = true;
 						console.log(self.authenticated)
 					}, function(error) {
