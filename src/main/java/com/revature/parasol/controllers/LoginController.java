@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -62,9 +63,13 @@ public class LoginController {
 	// String role = roleModuleService.getRoleForUser(userUrl, token);
 	// Object moduleList = roleModuleService.getModulesForRole(role);
 
-	HashMap<String, String> modules = new HashMap<String, String>();
-	modules.put("Google", "https://www.google.com/");
-	modules.put("Reddit", "https://www.reddit.com/");
+	List<HashMap<String, String>> modules = new ArrayList<HashMap<String, String>>();
+	for (int i = 0; i < 2; i++) {
+		HashMap<String, String> wow = new HashMap<String, String>();
+		wow.put("moduleName", "Google" + i);
+		wow.put("moduleURL", "https://www.google.com/");
+		modules.add(wow);
+	}
 
 	userAuthDetails.put("role", "admin");
 	userAuthDetails.put("modules", modules);
