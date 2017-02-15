@@ -69,7 +69,7 @@ public class Force {
         JSONObject response;
         try {
             response = new JSONObject(restTemplate.getForObject(url, String.class, params));
-            role = response.getJSONObject("records").getString("Name");
+            role = response.getJSONArray("records").getJSONObject(0).getString("Name");
         } catch (RestClientException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
