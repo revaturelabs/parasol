@@ -42,7 +42,31 @@ public class Force {
 	return urls.get("rest").replace("{version}", REST_VERSION);
     }
 
-   
+    //ADDED Billy Code
+    @SuppressWarnings("unchecked")
+    private static String getUserId(OAuth2Authentication principal) {
+        //Maps the Force.com Identity Service (user info)
+        HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
+        String userId = (String) details.get("user_id");
+        return  userId;
+    }
+
+    //Gets the user role from Salesforce
+    public String getRoleName(OAuth2Authentication principal) {
+        String url = restUrl(principal) + "query/?q={q}";
+        String userId = getUserId(principal);
+
+        //String query
+        Map<String, String> params = new HashMap<>();
+        params.put("q", "SELECT Name FROM userRole WHERE Id in " +
+        "(SELECT userroleid FROM user where id='" + userId +"')");
+
+        String role = restTemplate.getForObject(url, String.class, params);
+        System.out.println(role);
+        return role;
+    }
+   //ADDED Billy Code
+
     public String printRestUrl(OAuth2Authentication principal)
     {
 	return restUrl(principal);

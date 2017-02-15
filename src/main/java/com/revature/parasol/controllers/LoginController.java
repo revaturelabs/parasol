@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,10 @@ public class LoginController {
 
     // @Autowired
     // RoleModuleServiceInterface roleModuleService;
+
+	//Billy Code Added
+	@Autowired
+	Force force;
 
     /**
      * When /auth/login is called, the user is automatically redirected to salesforce if no
@@ -47,6 +52,8 @@ public class LoginController {
     @ResponseBody
     public OAuth2Authentication loginUser(@RequestParam(required = false) String code,
 	    OAuth2Authentication authentication) throws IOException {
+
+
 
 	//Get the details, including the token
 	System.out.println("Inside of login user...");
@@ -99,7 +106,7 @@ public class LoginController {
 	//CODE BILLY ADDED TO GET SALESFORCE USER ROLE - BEGIN//
 	////////////////////////////////////////////////////////
 
-
+	String role = force.getRoleName(authentication);
 	////////////////////////////////////////////////////////
 	//CODE BILLY ADDED TO GET SALESFORCE USER ROLE - END  //
 	////////////////////////////////////////////////////////
