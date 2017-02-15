@@ -80,7 +80,7 @@
 						url : 'auth/login'
 					}).then(function(success) {
 						console.log("Success!");
-						console.log(success.data.userAuthentication.details.modules);
+						console.log(success.data);
 						self.modules = success;
 						self.authenticated = true;
 						console.log(self.authenticated)
