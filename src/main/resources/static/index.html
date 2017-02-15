@@ -71,7 +71,7 @@
 					var self = $scope;
 					self.toSalesforce = toSalesforce;
 					//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
-			        self.method = "";
+			       	 	self.modules = "";
 					self.setHover = setHover;
 					self.hover = null;
 					
@@ -80,8 +80,8 @@
 						url : 'auth/login'
 					}).then(function(success) {
 						console.log("Success!");
-						console.log(success.data);
-						self.modules = success;
+						console.log(JSON.stringify(success.data));
+						self.modules = success.data;
 						self.authenticated = true;
 						console.log(self.authenticated)
 					}, function(error) {
