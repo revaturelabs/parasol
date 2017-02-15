@@ -56,16 +56,16 @@ public class LoginController {
 
 
 	//Get the details, including the token
-	System.out.println("Inside of login user...");
+	//System.out.println("Inside of login user...");
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 
-	System.out.println("Details: " + details);
+	//System.out.println("Details: " + details);
 
 	//Get roles and modules
 	getRolesAndModules(authentication);
-	System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
+	//System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
 
-	System.out.println("Returned object: " + authentication.toString());
+	//System.out.println("Returned object: " + authentication.toString());
 	// resp.sendRedirect("https://dev.parasol.revature.pro/?token=" +
 	// token);
 	return authentication;
@@ -83,23 +83,23 @@ public class LoginController {
      */
     public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
 
-	System.out.println("Inside Roles and Modules");
+	//System.out.println("Inside Roles and Modules");
 	
 	//Get user details from the authentication object
 	//Within the array we will store role and module list
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
 	
-	System.out.println("User details: " + userAuthDetails.toString());
+	//System.out.println("User details: " + userAuthDetails.toString());
 
 	//Get the token for sending to DAO so REST calls can be made to salesforce
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 
 	
 	String token = details.getTokenValue();
-	System.out.println("Token: " + token);
+	//System.out.println("Token: " + token);
 	String userId = (String) userAuthDetails.get("user_id");
-	System.out.println("User id: " + userId);
+	//System.out.println("User id: " + userId);
 
 
 	////////////////////////////////////////////////////////
