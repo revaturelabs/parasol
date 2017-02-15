@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import com.revature.parasol.domain.Modules;
+import com.revature.parasol.domain.Roles;
+import com.revature.parasol.domain.Permissions;
+
+import com.revature.parasol.domain.service.PermissionsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -32,6 +38,8 @@ public class LoginController {
 	//Billy Code Added
 	@Autowired
 	Force force;
+	@Autowired
+	PermissionsService ps;
 
     /**
      * When /auth/login is called, the user is automatically redirected to salesforce if no
@@ -48,6 +56,8 @@ public class LoginController {
      * @return
      * @throws IOException
      */
+
+    /*
     @RequestMapping(value = "/login")
     @ResponseBody
     public OAuth2Authentication loginUser(@RequestParam(required = false) String code,
@@ -70,6 +80,27 @@ public class LoginController {
 	// token);
 	return authentication;
     }
+    */
+
+
+	@RequestMapping(value = "/login")
+	@ResponseBody
+	public List<Modules> getModules(OAuth2Authentication principal) {
+		//Gets the role name from Salesforce and create a new instance of Role
+		String roleName = force.getRoleName(principal);
+		Roles role = new Roles(roleName);
+
+		//List of modules to be returned
+		List<Modules> mod = new ArrayList<>();
+
+		//Gets the list of permissions user has access to
+		List<Permissions> pList = ps.findByRole(role);
+		//Populate module list
+		for (Permissions p : pList) {
+			mod.add(p.getModule());
+		}
+		return mod;
+	}
 
     /**
      * Gets the role and accessible modules for the user. 

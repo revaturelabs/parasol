@@ -70,8 +70,9 @@
 				function($scope, $http, $location, $window) {
 					var self = $scope;
 					self.toSalesforce = toSalesforce;
-					self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
-			        self.setHover = setHover;
+					//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
+			        self.method = "";
+					self.setHover = setHover;
 					self.hover = null;
 					
 					$http({
@@ -80,7 +81,7 @@
 					}).then(function(success) {
 						console.log("Success!");
 						console.log(success.data.userAuthentication.details.modules);
-						//self.modules = success.data.userAuthentication.details.modules;
+						self.modules = success;
 						self.authenticated = true;
 						console.log(self.authenticated)
 					}, function(error) {
