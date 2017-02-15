@@ -1,13 +1,6 @@
-package com.revature.parasol.Service;
+package com.revature.parasol.domain.service;
 
-import com.revature.parasol.domain.Modules;
-import com.revature.parasol.domain.dao.PermissionsRepo;
-import com.revature.parasol.domain.dao.RolesRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.revature.parasol.domain.Roles;
-import java.util.List;
 
 /**
  * Created by Billy on 2/9/2017.

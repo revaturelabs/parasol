@@ -1,4 +1,4 @@
-package com.revature.parasol.Service;
+package com.revature.parasol.domain.service;
 
 import com.revature.parasol.domain.Modules;
 import com.revature.parasol.domain.Roles;
