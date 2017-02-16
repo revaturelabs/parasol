@@ -149,14 +149,14 @@ h2{
 					self.checkedData = [
 
 						{name: "roles", value: "VP of Technology", checked: true},
-						{name: "roles", value: "BDM", checked: false},
-						{name: "roles", value: "CFO", checked: false},
+						{name: "roles", value: "BDM", checked: true},
+						{name: "roles", value: "CFO", checked: true},
 						{name: "roles", value: "CMO", checked: false},
 						{name: "roles", value: "COO", checked: false},
 						{name: "roles", value: "Content and Quality", checked: false},
 						{name: "roles", value: "HR", checked: false},
 						{name: "roles", value: "HR Director", checked: false},
-						{name: "roles", value: "Trainers", checked: false},
+						{name: "roles", value: "Trainers", checked: true},
 						{name: "roles", value: "Training Recruiters", checked: false},
 						{name: "roles", value: "Training Recruitment Director", checked: false},
 						{name: "roles", value: "Associate", checked: false}
@@ -164,6 +164,23 @@ h2{
 						
 						
 					];
+
+					self.validdata = [];
+
+					   
+
+
+
+					angular.forEach(self.checkedData, function(value, key){
+      						if(value.checked == true)
+							 self.validdata.push(value);
+
+							 
+         					console.log("checked" + key);
+							console.log(self.validdata);
+							 
+							
+   					});
 					
 					$http({
 						method : 'GET',
@@ -189,48 +206,7 @@ h2{
 					{
 						self.hover = module;
 					}
-            function postdata 
-                (url, moduleName, checkedData ) {
-						console.log("called postdata");
-                    	var data = {
 
-                    	url: url,
-
-                    	moduleName: moduleName,
-
-						checkedData: checkedData
-
-						
-
-
-                		};
-						console.log(url);
-						console.log(moduleName);
-						console.log(checkedData);
-                	dataLoading = true;
-					
-					$http({
-						method : 'POST',
-						data: data,
-						url : 'moduleRegistration'
-					}).then(function(response) {
-					if (response)
-
-                    		self.msg = "Post Data Submitted Successfully!";
-
-                		}, function (response) {
-
-                    		self.msg = "Service not Exists";
-
-                    		self.statusval = response.status;
-
-                    		self.statustext = response.statusText;
-
-                    		self.headers = response.headers();
-
-            			});
-                	
-    				};
 					
 				});
 	</script>
