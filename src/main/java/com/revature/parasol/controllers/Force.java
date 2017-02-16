@@ -32,7 +32,7 @@ public class Force {
     @Bean
     private OAuth2RestTemplate oAuth2RestTemplate(OAuth2ProtectedResourceDetails resource,
 	    OAuth2ClientContext context) {
-	return new OAuth2RestTemplate(resource, context);
+    	return new OAuth2RestTemplate(resource, context);
     }
 
     @Autowired
@@ -41,8 +41,8 @@ public class Force {
     @SuppressWarnings("unchecked")
     private static String restUrl(OAuth2Authentication principal) {
 	HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
-	HashMap<String, String> urls = (HashMap<String, String>) details.get("urls");
-	return urls.get("rest").replace("{version}", REST_VERSION);
+		HashMap<String, String> urls = (HashMap<String, String>) details.get("urls");
+		return urls.get("rest").replace("{version}", REST_VERSION);
     }
 
     //ADDED Billy Code
@@ -79,11 +79,5 @@ public class Force {
         }
         System.out.println("THE ROLE IS " + role);
         return role;
-    }
-   //ADDED Billy Code
-
-    public String printRestUrl(OAuth2Authentication principal)
-    {
-	return restUrl(principal);
     }
 }

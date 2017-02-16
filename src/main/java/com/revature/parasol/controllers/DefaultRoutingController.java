@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.parasol.domain.dto.ModuleRegDTO;
+import com.revature.parasol.domain.dto.Status;
 import com.revature.parasol.domain.service.PermissionsService;
 
 @Controller
@@ -23,14 +24,13 @@ public class DefaultRoutingController {
     
     @RequestMapping(value = "/moduleregistration", method=RequestMethod.POST)
     @ResponseBody
-    public String postModuleRegistration(@RequestBody ModuleRegDTO data){
-    	System.out.println(data.getCheckedData().size());
-    	System.out.println(data.getCheckedData().get(0).getValue());
-    	System.out.println(data.getModuleName());
-              
-        //calls service layer insert for new permissions        
+    public Status postModuleRegistration(@RequestBody ModuleRegDTO data){
+        //calls service layer insert for new permissions
         //ps.insertPermissionByName(data);
-        return "HI";
+    	Status status = new Status();
+    	status.setStatus("error");
+    	status.setError("Module already exist");
+        return status;
         
     }
 }

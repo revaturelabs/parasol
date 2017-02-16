@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+form .ng-invalid.ng-dirty
+{
+    background-color: red;
+}
+form .ng-valid.ng-dirty{
+    background-color: lightgreen;
+}
+button[disabled] {
+	border: 1px solid #999;
+	background-color: #ddd;
+}
+h2{
+    font-size: 50px;
+    color: blue;
+    text-shadow: 1px 0px 0px #686868, 1px 1px 0px #686868, 0px 1px 0px #686868, 
+    -1px 1px 0px #686868, -1px 0px 0px #686868, -1px -1px 0px #686868, 
+    0px -1px 0px #686868, 1px -1px 0px #686868, 1px 4px 5px #aeaeae;
+}
