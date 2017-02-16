@@ -20,5 +20,8 @@ staging-management-system.iml
 .classpath
 .project
 
+<<<<<<< HEAD
 # MAC
+=======
+>>>>>>> 63d8e2a6e01039c5d2742250c2656cea89784c3b
 .DS_Store

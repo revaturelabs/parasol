@@ -9,6 +9,14 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+
+import com.revature.parasol.domain.Modules;
+import com.revature.parasol.domain.Roles;
+import com.revature.parasol.domain.Permissions;
+
+import com.revature.parasol.domain.service.PermissionsService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
@@ -33,6 +41,10 @@ public class LoginController {
 	@Autowired
 	Force force;
 
+	@Autowired
+	PermissionsService ps;
+
+
     /**
      * When /auth/login is called, the user is automatically redirected to salesforce if no
      * OAuth2Authentication object is detected by Spring Security. Once they have logged in, this method is run.
@@ -48,28 +60,29 @@ public class LoginController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/login")
-    @ResponseBody
-    public OAuth2Authentication loginUser(@RequestParam(required = false) String code,
-	    OAuth2Authentication authentication) throws IOException {
 
 
+    
 
-	//Get the details, including the token
-	System.out.println("Inside of login user...");
-	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+	@RequestMapping(value = "/login")
+	@ResponseBody
+	public List<Modules> getModules(OAuth2Authentication principal) {
+		//Gets the role name from Salesforce and create a new instance of Role
+		String roleName = force.getRoleName(principal);
+		Roles role = new Roles(roleName);
 
-	System.out.println("Details: " + details);
+		//List of modules to be returned
+		List<Modules> mod = new ArrayList<>();
 
-	//Get roles and modules
-	getRolesAndModules(authentication);
-	System.out.println("User details after additions: " + authentication.getUserAuthentication().getDetails());
+		//Gets the list of permissions user has access to
+		List<Permissions> pList = ps.findByRole(role);
+		//Populate module list
+		for (Permissions p : pList) {
+			mod.add(p.getModule());
+		}
+		return mod;
+	}
 
-	System.out.println("Returned object: " + authentication.toString());
-	// resp.sendRedirect("https://dev.parasol.revature.pro/?token=" +
-	// token);
-	return authentication;
-    }
 
     /**
      * Gets the role and accessible modules for the user. 
@@ -83,23 +96,29 @@ public class LoginController {
      */
     public LinkedHashMap<Object, Object> getRolesAndModules(OAuth2Authentication authentication) {
 
-	System.out.println("Inside Roles and Modules");
+
+	//System.out.println("Inside Roles and Modules");
+
 	
 	//Get user details from the authentication object
 	//Within the array we will store role and module list
 	LinkedHashMap<Object, Object> userAuthDetails = (LinkedHashMap<Object, Object>) authentication
 		.getUserAuthentication().getDetails();
 	
-	System.out.println("User details: " + userAuthDetails.toString());
+
+	//System.out.println("User details: " + userAuthDetails.toString());
+
 
 	//Get the token for sending to DAO so REST calls can be made to salesforce
 	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 
 	
 	String token = details.getTokenValue();
-	System.out.println("Token: " + token);
+
+	//System.out.println("Token: " + token);
 	String userId = (String) userAuthDetails.get("user_id");
-	System.out.println("User id: " + userId);
+	//System.out.println("User id: " + userId);
+
 
 
 	////////////////////////////////////////////////////////

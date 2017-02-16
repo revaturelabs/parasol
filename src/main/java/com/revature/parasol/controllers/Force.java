@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.json.JSONObject;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -15,6 +18,9 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
+
+import org.springframework.web.client.RestClientException;
+
 
 /**
  * @author Marc
@@ -29,7 +35,9 @@ public class Force {
     @Bean
     private OAuth2RestTemplate oAuth2RestTemplate(OAuth2ProtectedResourceDetails resource,
 	    OAuth2ClientContext context) {
-	return new OAuth2RestTemplate(resource, context);
+
+    	return new OAuth2RestTemplate(resource, context);
+
     }
 
     @Autowired
@@ -38,8 +46,10 @@ public class Force {
     @SuppressWarnings("unchecked")
     private static String restUrl(OAuth2Authentication principal) {
 	HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
-	HashMap<String, String> urls = (HashMap<String, String>) details.get("urls");
-	return urls.get("rest").replace("{version}", REST_VERSION);
+
+		HashMap<String, String> urls = (HashMap<String, String>) details.get("urls");
+		return urls.get("rest").replace("{version}", REST_VERSION);
+
     }
 
     //ADDED Billy Code
@@ -61,14 +71,22 @@ public class Force {
         params.put("q", "SELECT Name FROM userRole WHERE Id in " +
         "(SELECT userroleid FROM user where id='" + userId +"')");
 
-        String role = restTemplate.getForObject(url, String.class, params);
-        System.out.println(role);
-        return role;
-    }
-   //ADDED Billy Code
 
-    public String printRestUrl(OAuth2Authentication principal)
-    {
-	return restUrl(principal);
+        String role = null;
+
+        JSONObject response;
+        try {
+            response = new JSONObject(restTemplate.getForObject(url, String.class, params));
+            role = response.getJSONArray("records").getJSONObject(0).getString("Name");
+        } catch (RestClientException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        System.out.println("THE ROLE IS " + role);
+        return role;
+
     }
 }
