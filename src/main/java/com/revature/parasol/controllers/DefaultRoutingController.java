@@ -1,16 +1,32 @@
 package com.revature.parasol.controllers;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.revature.parasol.domain.dto.ModuleRegDTO;
+import com.revature.parasol.domain.service.PermissionsService;
+
 @Controller
 public class DefaultRoutingController {
-    @RequestMapping(value = {"/", "/moduleregistration"} )
+	
+	@Autowired
+	PermissionsService ps;
+	
+    @RequestMapping(value = "/")
     public String routeToHome(){
         return "forward:index.html";
+    }
+    
+    @RequestMapping(value = "/moduleregistration", method=RequestMethod.POST)
+    @ResponseBody
+    public String postModuleRegistration(@RequestBody ModuleRegDTO data){
+        //calls service layer insert for new permissions
+        ps.insertPermissionByName(data);
+        return "HI";
+        
     }
 }
