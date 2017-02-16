@@ -1,5 +1,8 @@
 package com.revature.parasol.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.parasol.domain.dto.ModuleRegDTO;
+import com.revature.parasol.domain.dto.RolesDTO;
 import com.revature.parasol.domain.dto.Status;
 import com.revature.parasol.domain.service.PermissionsService;
 

@@ -1,5 +1,5 @@
 <!-- Module List -->
-<div class="container" ng-show="authenticated">
+<div class="container" ng-show="!authenticated">
 	<ul class="nav nav-justified">
 		<li role="presentation" class="" ng-repeat="mod in modules" id="{{mod.moduleName}}">
 			<a href="{{mod.moduleURL}}" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)">
