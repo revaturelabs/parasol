@@ -10,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/64f18c2489.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript" src="moduleRegistration.js"></script>
+
 <style>
 .nav.nav-justified > li > a { position: relative; }
 .nav.nav-justified > li > a:hover,
@@ -82,11 +84,11 @@ h2{
         <div ng-show="hover">            
 			<p align="center" class="lead">{{hover.moduleName}}</p>
         </div>
-
+		</div>
 		<div class="col-md-6 col-md-offset-3" ng-show="!authenticated">
     <h2>Module Registration</h2>
                
-    <form name="myForm" novalidate ng-submit="postdata(url, moduleName)" role="form">
+    <form name="myForm" novalidate ng-submit="postdata(url, moduleName, checkedData)" role="form">
         <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
             <label for="url">URL address</label>
             <input type="text" name="url" id="url" class="form-control" ng-model="url" ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/" required />
@@ -98,10 +100,24 @@ h2{
             <span class="error" ng-show="myForm.moduleName.$dirty && myForm.moduleName.$invalid " class="help-block">Module name is required </span>
         </div>
         <div>
-            <label class="checkbox-inline"><input type="checkbox" checked value="" disabled>Admin</label>
-            <label class="checkbox-inline"><input type="checkbox" checked value="">Trainer HR</label>
-            <label class="checkbox-inline"><input type="checkbox" checked value="" >Associate</label>
-            
+		  <div>
+			<label class="checkbox-inline"><input type="checkbox"  value: "VP of Technology" ng-model="checkedData[0].checked"  >VP of Technology</label>
+            <label class="checkbox-inline"><input type="checkbox"  value: "BDM" ng-model="checkedData[1].checked" >BDM</label>
+            <label class="checkbox-inline"><input type="checkbox"  value: "CFO" ng-model="checkedData[2].checked" >CFO</label>
+			<label class="checkbox-inline"><input type="checkbox"  value: "CMO" ng-model="checkedData[3].checked" >CMO</label>
+            <label class="checkbox-inline"><input type="checkbox"  value: "COO" ng-model="checkedData[4].checked" >COO</label>
+		  </div>
+		  <div>
+			<label class="checkbox-inline"><input type="checkbox"  value: "Content and Quality" ng-model="checkedData[5].checked" >Content and Quality</label>
+            <label class="checkbox-inline"><input type="checkbox"  value: "HR" ng-model="checkedData[6].checked" >HR</label>
+			<label class="checkbox-inline"><input type="checkbox"  value: "HR Director" ng-model="checkedData[7].checked" >HR Director</label>
+            <label class="checkbox-inline"><input type="checkbox"  value: "Trainers" ng-model="checkedData[8].checked" >Trainers</label>
+			<label class="checkbox-inline"><input type="checkbox"  value: "Training Recruiters" ng-model="checkedData[9].checked" >Training Recruiters</label>
+		  <div>
+            <label class="checkbox-inline"><input type="checkbox"  value: "Training Recruitment Director" ng-model="checkedData[10].checked" >Training Recruitment Director</label>
+			<label class="checkbox-inline"><input type="checkbox"  value: "Associate" ng-model="checkedData[11].checked" >Associate</label>
+		  </div>
+		  </div>
         <br>
         <div class="form-actions">
             <button type="submit" ng-disabled="myForm.$invalid || dataLoading"  class="btn btn-primary">Register Module</button>
@@ -115,6 +131,7 @@ h2{
 	<script src="https://code.angularjs.org/1.6.0/angular.min.js">
 		type = "text/javascript" >
 	</script>
+	
 	<script type="text/javascript">
 		angular.module("ParasolApp", []).controller("home",
 				function($scope, $http, $location, $window) {
@@ -127,6 +144,26 @@ h2{
             		self.moduleName = null;
             		self.dataLoading = false;
 					self.authenticated = false;
+					self.postdata = postdata;
+
+					self.checkedData = [
+
+						{name: "roles", value: "VP of Technology", checked: true},
+						{name: "roles", value: "BDM", checked: false},
+						{name: "roles", value: "CFO", checked: false},
+						{name: "roles", value: "CMO", checked: false},
+						{name: "roles", value: "COO", checked: false},
+						{name: "roles", value: "Content and Quality", checked: false},
+						{name: "roles", value: "HR", checked: false},
+						{name: "roles", value: "HR Director", checked: false},
+						{name: "roles", value: "Trainers", checked: false},
+						{name: "roles", value: "Training Recruiters", checked: false},
+						{name: "roles", value: "Training Recruitment Director", checked: false},
+						{name: "roles", value: "Associate", checked: false}
+						
+						
+						
+					];
 					
 					$http({
 						method : 'GET',
@@ -152,24 +189,32 @@ h2{
 					{
 						self.hover = module;
 					}
-
-					function postdata (url, moduleName) {
+            function postdata 
+                (url, moduleName, checkedData ) {
+						console.log("called postdata");
                     	var data = {
 
                     	url: url,
 
-                    	ModuleName: moduleName
+                    	moduleName: moduleName,
+
+						checkedData: checkedData
+
+						
+
 
                 		};
-
+						console.log(url);
+						console.log(moduleName);
+						console.log(checkedData);
                 	dataLoading = true;
 					
 					$http({
 						method : 'POST',
-						data: JSON.stringify(data),
+						data: data,
 						url : 'moduleRegistration'
 					}).then(function(response) {
-					if (response.data)
+					if (response)
 
                     		self.msg = "Post Data Submitted Successfully!";
 
@@ -186,6 +231,7 @@ h2{
             			});
                 	
     				};
+					
 				});
 	</script>
 </body>
