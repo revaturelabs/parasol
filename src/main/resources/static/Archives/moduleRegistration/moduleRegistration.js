@@ -2,22 +2,22 @@
     'use strict';
 
     angular
-        .module('ParasolApp')
-        .controller('WelcomeController', WelcomeController);
-
-    WelcomeController.$inject = ['$location', 'AuthenticationService', 'ErrorService'];
-    function WelcomeController($location, AuthenticationService, ErrorService) 
+        .module('ParasolApp', [])
+        .controller('ModuleRegistrationController', ModuleRegistrationController);
+     // injections go here
+    ModuleRegistrationController.$inject = ['$location'];
+    function ModuleRegistrationController($location) 
     {
         var vm = this;
 
-        vm.login = login;
+        
 
         (function initController() {
-            // Clear credentials upon return to login screen
-            AuthenticationService.ClearCredentials();
+            // anything I need controller to do on load
+            
         })();
 
-        function login() 
+        function registerModule() 
         {
             //Prevent multiple submissions
             vm.dataLoading = true;

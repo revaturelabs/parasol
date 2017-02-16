@@ -21,29 +21,29 @@
                 templateUrl: 'welcome/welcome.html',
                 controllerAs: 'vm'
             })
+            .when('/moduleRegistration', {
+                controller: 'ModuleRegistrationController',
+                templateUrl: 'moduleRegistration/moduleRegistration.html',
+                controllerAs: 'vm'
+            })
 
             .otherwise({ redirectTo: '/welcome' });
+        //$locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http', '$timeout'];
-    function run($rootScope, $location, $cookies, $http, $timeout) 
+    run.$inject = ['$rootScope', '$window', '$location', '$timeout', '$http'];
+    function run($rootScope, $window, $location, $timeout, $http) 
     {
-        // keep user logged in after page refresh
-        $rootScope.globals = $cookies.getObject('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
-        }
-
         $rootScope.$on('$locationChangeStart', function (event, next, current) 
         {
             // redirect to login page if not logged in and trying to access a restricted page
             $rootScope.showLogout = false;
             var restrictedPage = $.inArray($location.path(), ['/welcome']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn)
+            if (restrictedPage && !$rootScope.authenticated)
             {
-                $location.path('/');
-            }
+            	$location.path('/welcome');
+            }          
+            
             if($location.path() == "/welcome")
             {
                 $rootScope.showLogout = false;
@@ -67,6 +67,20 @@
                          $rootScope.largeContent = false;
                      }
                 }, 0);                    
+        });
+        
+        angular.element($window).bind('resize', function(){
+            $rootScope.largeContent = false;
+            $timeout(function(){
+                 if($(".jumbotron")[0].clientHeight/window.innerHeight > 0.8)
+                 {
+                     $rootScope.largeContent = true;
+                 }
+                 else
+                 {
+                     $rootScope.largeContent = false;
+                 }
+            }, 0);
         });
     }
 

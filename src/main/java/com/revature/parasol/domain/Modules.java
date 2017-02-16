@@ -18,10 +18,16 @@ public class Modules {
     @Column(name="MODULE_NAME")
     private String moduleName;
 
-    @Column(name="MODLUE_URL")
+    @Column(name="MODULE_URL")
     private String moduleURL;
 
+
     public Modules(){}
+
+    public Modules(String modName, String modURL){
+        this.moduleName = modName;
+        this.moduleURL = modURL;
+    }
     
     //moduleName
     public String getModuleName() {

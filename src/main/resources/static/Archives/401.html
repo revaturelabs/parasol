@@ -1,0 +1,84 @@
+
+
+<html lang="en" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <style>
+#message{
+    color: red;
+    text-align: center;
+    text-shadow: 2px 2px black;
+    position: absolute;
+    top: 10;
+    right: 500;
+}
+#description{
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    text-shadow: 1px 1px black;
+    position: absolute;
+    top: 130;
+    right: 250;
+}
+
+
+#unauthorized{
+   
+    position: absolute;
+    top: 300;
+    right: 400;
+     
+}
+  </style>
+</head>
+<body ng-app="401App"  ng-controller="myController">
+
+  <div class="container1" layout="row"  flex> 
+
+      <div class="container2">
+        <div id="message"><h1 class="md-display-3">{{errorObject.message}}</h1></div>
+        <div id="description"><h1 class=md-dispaly-3>{{errorObject.description}}</h1></div>
+        <div id="unauthorized"> <img  src="unauthorized.jpg"></div>
+     </div>
+
+      </div>
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    var myApp = angular.module('401App', ['ngMaterial','ngAnimate']);
+    myApp.controller("myController", function($scope){
+        $scope.errorObject = {
+            message: "401 Unauthorized",
+            description: "You do not have permission to view the directory or page using the credentials that you supplied"
+        }
+        
+
+
+    });
+
+  </script>
+  
+</body>
+</html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->
+
