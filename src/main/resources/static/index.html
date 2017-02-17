@@ -28,14 +28,14 @@
 	</nav>
 
 	<!-- Login -->
-	<div class="container" ng-show="!authenticated">
+	<div class="container" ng-show="authenticated">
 		<a href="/auth/sflogin">Salesforce: </a>
 		<button type="button" ng-click="toSalesforce()"
 			class="btn btn-primary btn-lg btn3d">Login</button>
 	</div>
 	
 	<!-- Module -->
-	<ul class="nav navbar-nav navbar-right" ng-show="authenticated">
+	<ul class="nav navbar-nav navbar-right" ng-show="!authenticated">
 		<li><a href="#!/moduleList"><i class="fa fa-home"></i>Modules</a></li>
 		<li><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
 	</ul>
@@ -111,19 +111,22 @@
 			self.setHover = setHover;
 			self.hover = null;
 			self.authenticated = false;
+			self.admin = false;
 			
 			/*$http({
 				method : 'GET',
 				url : 'auth/login'
 			}).then(function(success) {
 				console.log("Success!");
-				self.modules = success.data;
+				self.modules = success.data.modules;
 				self.authenticated = true;
+				self.admin = success.data.admin;
 				console.log(self.authenticated)
 			}, function(error) {
 				console.log("Inside error");
 				console.log(error);
 				self.authenticated = false;
+				self.admin = false;
 			});*/
 			
 			function toSalesforce()
@@ -156,12 +159,17 @@
 				{name: "roles", value: "Training Recruitment Director", checked: false},
 				{name: "roles", value: "Associate", checked: false}
 			];
+          	self.validdata = [];
           		
             function postdata (url, moduleName, checkedData ) {
+          		angular.forEach(self.checkedData, function(value, key){
+                    if(value.checked == true) self.validdata.push(value);
+             	});
+          		
                 var data = {
                  	url: url,
                  	moduleName: moduleName,
-					checkedData: checkedData
+					checkedData: self.validdata
             	};
                 	
              	dataLoading = true;
@@ -171,13 +179,15 @@
 					data: data,
 					url : '/moduleregistration'
 				}).then(function(success) {
-					if (success.data.error != null) {
-						self.msg = success.data.error;
+					self.validdata = [];
+					if (success.data.result.error != null) {
+						self.msg = success.data.result.error;
 					}else {
 						self.msg = "Post Data Submitted Successfully!";	
 					}
 				}, function(error) {
 					self.msg = "Service does not exist";
+					self.validdata = [];
 				});
  			};
 		});

@@ -89,4 +89,15 @@ public class Force {
         return role;
 
     }
+    
+    //Checks whether the user role is an admin or not
+    public static boolean isAdmin(String role) {
+        if (role.equals("VP of Technology") || role.equals("COO")||
+            role.equals("CFO") || role.equals("CMO")||
+            role.equals("Content and Quality")) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
