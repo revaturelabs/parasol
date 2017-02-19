@@ -115,7 +115,7 @@
 			
 			$http({
 				method : 'GET',
-				url : 'auth/login'
+				url : '/login'
 			}).then(function(success) {
 				console.log("Success!");
 				self.modules = success.data.modules;
