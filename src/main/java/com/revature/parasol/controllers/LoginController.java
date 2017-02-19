@@ -10,6 +10,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.revature.parasol.domain.Modules;
 import com.revature.parasol.domain.Roles;
 import com.revature.parasol.domain.Permissions;
@@ -17,6 +22,7 @@ import com.revature.parasol.domain.Permissions;
 import com.revature.parasol.domain.service.PermissionsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
@@ -61,6 +67,30 @@ public class LoginController {
     	map.put("modules", mod);
     	map.put("admin", Force.isAdmin(roleName));
 		return map;
+	}
+	
+	//Logging out - Ramiz
+	@RequestMapping(value = "/logout")
+	public String DoLogout(HttpServletRequest request, HttpServletResponse response){
+	   
+		HttpSession session = request.getSession(false);
+		     
+		//clear spring security context
+		SecurityContextHolder.clearContext();
+		       
+		session = request.getSession(false);
+   
+		//Invalidate session
+		if(session != null) {
+			session.invalidate();
+		}
+
+		//Clear Cookies
+		for(Cookie cookie : request.getCookies()) {
+			cookie.setMaxAge(0);
+		}
+		
+		return "redirect:index.html";
 	}
 
 }
