@@ -73,7 +73,7 @@ public class LoginController {
 	
 	//Logging out - Ramiz
 	@RequestMapping(value = "/logout")
-	public void DoLogout(HttpServletRequest request, HttpServletResponse response){
+	public String DoLogout(HttpServletRequest request, HttpServletResponse response){
 	   
 		CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 	    SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
@@ -97,5 +97,6 @@ public class LoginController {
 //		}
 		
 		//return "redirect:index.html";
+		return "redirect:/";
 	}
 }
