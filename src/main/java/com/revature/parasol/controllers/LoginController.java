@@ -25,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,25 +73,29 @@ public class LoginController {
 	
 	//Logging out - Ramiz
 	@RequestMapping(value = "/logout")
-	public String DoLogout(HttpServletRequest request, HttpServletResponse response){
+	public void DoLogout(HttpServletRequest request, HttpServletResponse response){
 	   
+		CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
+	    SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+	    cookieClearingLogoutHandler.logout(request, response, null);
+	    securityContextLogoutHandler.logout(request, response, null);
 		HttpSession session = request.getSession(false);
 		     
 		//clear spring security context
-		SecurityContextHolder.clearContext();
-		       
-		session = request.getSession(false);
+//		SecurityContextHolder.clearContext();
+//		       
+//		session = request.getSession(false);
    
 		//Invalidate session
-		if(session != null) {
-			session.invalidate();
-		}
+//		if(session != null) {
+//			session.invalidate();
+//		}
 
 		//Clear Cookies
-		for(Cookie cookie : request.getCookies()) {
-			cookie.setMaxAge(0);
-		}
+//		for(Cookie cookie : request.getCookies()) {
+//			cookie.setMaxAge(0);
+//		}
 		
-		return "redirect:index.html";
+		//return "redirect:index.html";
 	}
 }
