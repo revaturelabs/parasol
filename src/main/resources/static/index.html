@@ -9,8 +9,11 @@
 	crossorigin="anonymous">
 <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://use.fontawesome.com/64f18c2489.js" type="text/javascript"></script>
+<script src="webjars/angularjs/1.6.1/angular.min.js" type ="text/javascript"></script>
+<script src="webjars/angularjs/1.6.1/angular-route.js" type ="text/javascript"></script>
 
 <link href="css/style.css" rel="stylesheet">
+<link href="css/modReg.css" rel="stylesheet">
 </head>
 
 <body ng-app="ParasolApp" ng-controller="home">
@@ -29,67 +32,14 @@
 		<button type="button" ng-click="toSalesforce()"
 			class="btn btn-primary btn-lg btn3d">Login</button>
 	</div>
-
-	<div class="container" ng-show="authenticated">
-		<ul class="nav nav-justified">
-        	<li role="presentation" class="" ng-repeat="mod in modules" id="{{mod.moduleName}}">
-        		<a href="{{mod.moduleURL}}" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)">
-                	<i class="fa fa-calendar-plus-o fa-4x"></i>
-        		</a>
-            </li>
-        </ul>        
-           
-        <!-- Tab panes -->
-        <div ng-show="hover">            
-			<p align="center" class="lead">{{hover.moduleName}}</p>
-        </div>
-	</div>
 	
-	<!-- Module Registration -->
-	<div class="col-md-6 col-md-offset-3" ng-show="authenticated">
-	    <h2>Module Registration</h2>
-	               
-	    <form name="myForm" novalidate ng-submit="postdata(url, moduleName, checkedData)" role="form">
-	        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
-	            <label for="url">URL address</label>
-	            <input type="text" name="url" id="url" class="form-control" ng-model="url" ng-pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/" required />
-	            <span class="error" ng-show="myForm.url.$dirty && myForm.url.$invalid" class="help-block">URL is required </span>
-	        </div>
-	        <div class="form-group" ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
-	            <label for="moduleName">Module Name</label>
-	            <input type="text" name="moduleName" id="moduleName" class="form-control" ng-model="moduleName" required />
-	            <span class="error" ng-show="myForm.moduleName.$dirty && myForm.moduleName.$invalid " class="help-block">Module name is required </span>
-	        </div>
-	        <div>
-				  <div>
-					<label class="checkbox-inline"><input type="checkbox"  value="VP of Technology" ng-model="checkedData[0].checked"  >VP of Technology</label>
-		            <label class="checkbox-inline"><input type="checkbox"  value="BDM" ng-model="checkedData[1].checked" >CFO</label>
-		            <label class="checkbox-inline"><input type="checkbox"  value="CFO" ng-model="checkedData[2].checked" >CMO</label>
-					<label class="checkbox-inline"><input type="checkbox"  value="CMO" ng-model="checkedData[3].checked" >COO</label>
-		            <label class="checkbox-inline"><input type="checkbox"  value="COO" ng-model="checkedData[4].checked" >Content and Quality</label>
-				  </div>
-				  <div>
-					<label class="checkbox-inline"><input type="checkbox"  value="Content and Quality" ng-model="checkedData[5].checked" >BDM</label>
-		            <label class="checkbox-inline"><input type="checkbox"  value="HR" ng-model="checkedData[6].checked" >HR</label>
-					<label class="checkbox-inline"><input type="checkbox"  value="HR Director" ng-model="checkedData[7].checked" >HR Director</label>
-		            <label class="checkbox-inline"><input type="checkbox"  value="Trainers" ng-model="checkedData[8].checked" >Trainers</label>
-					<label class="checkbox-inline"><input type="checkbox"  value="Training Recruiters" ng-model="checkedData[9].checked" >Training Recruiters</label>
-				  </div>
-				  <div>
-		            <label class="checkbox-inline"><input type="checkbox"  value="Training Recruitment Director" ng-model="checkedData[10].checked" >Training Recruitment Director</label>
-					<label class="checkbox-inline"><input type="checkbox"  value="Associate" ng-model="checkedData[11].checked" >Associate</label>
-				  </div>
-			 </div>
-	        <br>
-	        <div class="form-actions">
-	            <button type="submit" ng-disabled="myForm.$invalid || dataLoading"  class="btn btn-primary">Register Module</button>
-	        </div>
-	    </form>
-	    {{msg}}
-	    {{statusval}}
-	    {{statustext}}
-	    {{headers}}
-	</div>
+	<!-- Module -->
+	<ul class="nav navbar-nav navbar-right" ng-show="authenticated">
+		<li><a href="#!/moduleList"><i class="fa fa-home"></i>Modules</a></li>
+		<li ng-show="admin"><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
+		<li><a href="/logout">Logout</a></li>
+	</ul>
+	<div ng-view></div>
 
 	<!-- Footer -->
     <footer class="text-center">
@@ -105,19 +55,16 @@
                         <h3>Connect with us</h3>
                         <ul class="list-inline">
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.facebook.com/revature/" class="btn-social btn-outline"><i class="fa fa-facebook"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-google-plus"></i></a>
+                                <a href="https://plus.google.com/+RevatureLife" class="btn-social btn-outline"><i class="fa fa-google-plus"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-twitter"></i></a>
+                                <a href="https://twitter.com/wearerevature?lang=en" class="btn-social btn-outline"><i class="fa fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-dribbble"></i></a>
+                                <a href="https://www.linkedin.com/company/revature" class="btn-social btn-outline"><i class="fa fa-linkedin"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -138,88 +85,112 @@
             </div>
         </div>
     </footer>
-    
-	<script src="//code.angularjs.org/1.6.0/angular.min.js" type ="text/javascript"></script>
+   
 	<script type="text/javascript">
-		angular.module("ParasolApp", []).controller("home",
-				function($scope, $http, $location, $window) {
-					var self = $scope;
-					self.toSalesforce = toSalesforce;
-					//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
-			       	self.modules = "";
-					self.setHover = setHover;
-					self.hover = null;
-					self.authenticated = false;
-					
-					$http({
-						method : 'GET',
-						url : 'auth/login'
-					}).then(function(success) {
-						console.log("Success!");
-						self.modules = success.data;
-						self.authenticated = true;
-						console.log(self.authenticated)
-					}, function(error) {
-						console.log("Inside error");
-						console.log(error);
-						self.authenticated = false;
-					});
-					
-					function toSalesforce()
-					{
-						$window.location.href = '/auth/sflogin';
+		var app = angular.module("ParasolApp", ["ngRoute"]);
+		
+		app.config(function($routeProvider) {
+			$routeProvider
+				.when('/', {
+					templateUrl: '/modList.html'
+				})
+				.when('/moduleList', {
+					templateUrl: '/modList.html'
+				})
+				.when('/moduleReg', {
+					templateUrl: '/modReg.html'
+				})
+				.otherwise({ redirectTo: '/route' })
+		});
+		
+		app.controller("home", function($scope, $http, $location, $window) {
+			var self = $scope;
+			self.toSalesforce = toSalesforce;
+			//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
+	       	self.modules = "";
+			self.setHover = setHover;
+			self.hover = null;
+			self.authenticated = false;
+			self.admin = false;
+			
+			$http({
+				method : 'GET',
+				url : 'auth/login'
+			}).then(function(success) {
+				console.log("Success!");
+				self.modules = success.data.modules;
+				self.authenticated = true;
+				self.admin = success.data.admin;
+				console.log(self.authenticated)
+			}, function(error) {
+				console.log("Inside error");
+				console.log(error);
+				self.authenticated = false;
+				self.admin = false;
+			});
+			
+			function toSalesforce()
+			{
+				$window.location.href = '/auth/sflogin';
+			}
+			
+			function setHover(module)
+			{
+				self.hover = module;
+			}
+			
+			//Kevin's Mod
+			self.url = null;
+        	self.moduleName = null;
+        	self.dataLoading = false;
+        	self.postdata = postdata;
+          		
+          	self.checkedData = [
+				{name: "roles", value: "VP of Technology", checked: true},
+				{name: "roles", value: "CFO", checked: true},
+				{name: "roles", value: "CMO", checked: true},
+				{name: "roles", value: "COO", checked: true},
+				{name: "roles", value: "Content and Quality", checked: true},
+				{name: "roles", value: "BDM", checked: false},
+				{name: "roles", value: "HR", checked: false},
+				{name: "roles", value: "HR Director", checked: false},
+				{name: "roles", value: "Trainers", checked: false},
+				{name: "roles", value: "Training Recruiters", checked: false},
+				{name: "roles", value: "Training Recruitment Director", checked: false},
+				{name: "roles", value: "Associate", checked: false}
+			];
+          	self.validdata = [];
+          		
+            function postdata (url, moduleName, checkedData ) {
+          		angular.forEach(self.checkedData, function(value, key){
+                    if(value.checked == true) self.validdata.push(value);
+             	});
+          		
+                var data = {
+                 	url: url,
+                 	moduleName: moduleName,
+					checkedData: self.validdata
+            	};
+                	
+             	dataLoading = true;
+		
+				$http({
+					method : 'POST',
+					data: data,
+					url : '/moduleregistration'
+				}).then(function(success) {
+					self.validdata = [];
+					if (success.data.error != null) {
+						self.msg = success.data.error;
+					}else {
+						self.msg = "Post Data Submitted Successfully!";	
 					}
-					
-					function setHover(module)
-					{
-						self.hover = module;
-					}
-					
-					//Kevin's Mod
-					self.url = null;
-            		self.moduleName = null;
-            		self.dataLoading = false;
-            		self.postdata = postdata;
-            		
-            		self.checkedData = [
-						{name: "roles", value: "VP of Technology", checked: true},
-						{name: "roles", value: "CFO", checked: true},
-						{name: "roles", value: "CMO", checked: true},
-						{name: "roles", value: "COO", checked: true},
-						{name: "roles", value: "Content and Quality", checked: true},
-						{name: "roles", value: "BDM", checked: false},
-						{name: "roles", value: "HR", checked: false},
-						{name: "roles", value: "HR Director", checked: false},
-						{name: "roles", value: "Trainers", checked: false},
-						{name: "roles", value: "Training Recruiters", checked: false},
-						{name: "roles", value: "Training Recruitment Director", checked: false},
-						{name: "roles", value: "Associate", checked: false}
-					];
-            		
-                    function postdata (url, moduleName, checkedData ) {
-                       	var data = {
-                        	url: url,
-                        	moduleName: moduleName,
-    						checkedData: checkedData
-                   		};
-                       	
-                    	dataLoading = true;
-    					
-    					$http({
-    						method : 'POST',
-    						data: data,
-    						url : '/moduleregistration'
-    					}).then(function(response) {
-    						if (response) {
-                        		self.msg = "Post Data Submitted Successfully!";
-                   		}}, function (response) {
-                       		self.msg = "Service not Exists";
-                       		self.statusval = response.status;
-                       		self.statustext = response.statusText;
-                       		self.headers = response.headers();
-               			});
-        			};
+				}, function(error) {
+					self.msg = "Service does not exist";
+					self.validdata = [];
 				});
+ 			};
+		});
 	</script>
 </body>
 </html>
