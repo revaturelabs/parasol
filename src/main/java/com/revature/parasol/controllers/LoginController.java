@@ -75,11 +75,12 @@ public class LoginController {
 	@RequestMapping(value = "/logout")
 	public String DoLogout(HttpServletRequest request, HttpServletResponse response){
 	   
+		//http://docs.spring.io/spring-security/site/xref/org/springframework/security/ui/logout/SecurityContextLogoutHandler.html
 		CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 	    SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
 	    cookieClearingLogoutHandler.logout(request, response, null);
 	    securityContextLogoutHandler.logout(request, response, null);
-		HttpSession session = request.getSession(false);
+		request.getSession(false);
 		     
 		//clear spring security context
 //		SecurityContextHolder.clearContext();

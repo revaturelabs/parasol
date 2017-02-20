@@ -22,7 +22,7 @@ public class DefaultRoutingController {
 	@Autowired
 	PermissionsService ps;
 	
-    @RequestMapping(value = {"/", "/moduleList", "/moduleReg"})
+    @RequestMapping(value = "/")
     public String routeToHome(){
         return "forward:index.html";
     }
