@@ -92,13 +92,13 @@
 		app.config(function($routeProvider) {
 			$routeProvider
 				.when('/', {
-					templateUrl: '/modList.html'
+					templateUrl: 'html/modList.html'
 				})
 				.when('/moduleList', {
-					templateUrl: '/modList.html'
+					templateUrl: 'html/modList.html'
 				})
 				.when('/moduleReg', {
-					templateUrl: '/modReg.html'
+					templateUrl: 'html/modReg.html'
 				})
 				.otherwise({ redirectTo: '/route' })
 		});
@@ -115,16 +115,12 @@
 			
 			$http({
 				method : 'GET',
-				url : 'auth/login'
+				url : '/login'
 			}).then(function(success) {
-				console.log("Success!");
 				self.modules = success.data.modules;
 				self.authenticated = true;
 				self.admin = success.data.admin;
-				console.log(self.authenticated)
 			}, function(error) {
-				console.log("Inside error");
-				console.log(error);
 				self.authenticated = false;
 				self.admin = false;
 			});

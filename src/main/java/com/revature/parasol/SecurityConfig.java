@@ -22,13 +22,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/", "/login", "/webjars/**", "/modReg.html", "/modList.html", "/moduleregistration")
+				.antMatchers("/", "/webjars/**")
 					.permitAll()
 				.anyRequest()
 					.authenticated()
 				.and()
 			.logout()
 				.logoutSuccessUrl("/")
+				.clearAuthentication(true)
 				.permitAll()
 				.and()
 			.csrf()
