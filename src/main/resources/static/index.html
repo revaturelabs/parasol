@@ -12,6 +12,8 @@
 <script src="webjars/angularjs/1.6.1/angular.min.js" type ="text/javascript"></script>
 <script src="webjars/angularjs/1.6.1/angular-route.js" type ="text/javascript"></script>
 
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/freelancer.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/modReg.css" rel="stylesheet">
 </head>
@@ -23,6 +25,12 @@
 		<div class="navbar-header page-scroll">
 			<h1 class="navbar-brand" align="center">Parasol</h1>
 			<img src="/images/revature_logo.png" alt="logo" class="logo">
+			<!-- Module -->
+			<ul class="nav navbar-nav navbar-right tabbars" ng-show="authenticated">
+				<li><a href="#!/"><i class="fa fa-home"></i>Modules</a></li>
+				<li ng-show="admin"><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
 		</div>        
 	</nav>
 
@@ -33,12 +41,6 @@
 			class="btn btn-primary btn-lg btn3d">Login</button>
 	</div>
 	
-	<!-- Module -->
-	<ul class="nav navbar-nav navbar-right" ng-show="authenticated">
-		<li><a href="#!/"><i class="fa fa-home"></i>Modules</a></li>
-		<li ng-show="admin"><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
-		<li><a href="/logout">Logout</a></li>
-	</ul>
 	<div ng-view></div>
 
 	<!-- Footer -->
@@ -97,14 +99,14 @@
 				.when('/moduleReg', {
 					templateUrl: 'html/modReg.html'
 				})
-				.otherwise({ redirectTo: '/route' })
+				.otherwise({ redirectTo: '/' })
 		});
 		
 		app.controller("home", function($scope, $http, $location, $window) {
 			var self = $scope;
 			self.toSalesforce = toSalesforce;
 			//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
-	       		self.modules = "";
+			self.modules = "";
 			self.setHover = setHover;
 			self.hover = null;
 			self.authenticated = false;
@@ -176,7 +178,8 @@
 					if (success.data.error != null) {
 						self.msg = success.data.error;
 					}else {
-						self.msg = "Post Data Submitted Successfully!";	
+						self.msg = "Post Data Submitted Successfully!";
+						$window.location.href = '/';
 					}
 				}, function(error) {
 					self.msg = "Service does not exist";

@@ -77,7 +77,6 @@ public class Force {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-        System.out.println("THE ROLE IS " + role);
         return role;
     }
     
@@ -85,7 +84,7 @@ public class Force {
     public static boolean isAdmin(String role) {
         if (role.equals("VP of Technology") || role.equals("COO")||
             role.equals("CFO") || role.equals("CMO")||
-            role.equals("Content and Quality")) {
+            role.equals("Content and Quality") || role.equals("Trainers")) {
             return true;
         }else {
             return false;

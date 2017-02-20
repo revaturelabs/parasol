@@ -3,6 +3,7 @@ package com.revature.parasol.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +31,19 @@ public class DefaultRoutingController {
     @RequestMapping(value = "/moduleregistration", method=RequestMethod.POST)
     @ResponseBody
     public Map<String,String> postModuleRegistration(@RequestBody ModuleRegDTO data){
-        //calls service layer insert for new permissions
-        ps.insertPermissionByName(data);
-        
-        //Response or status
     	Map<String,String> status = new HashMap<>();
-    	status.put("error", "Module Already Exist");
-        return status;
+    	
+    	//calls service layer insert for new permissions
+    	try {
+        	ps.insertPermissionByName(data);
+        	//Returns nothing really
+        	return status;
+    	} catch(HibernateException e) {
+            //Response or status
+    		status.put("error", "Module Already Exist");
+            return status;
+    	}
+        
     	//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
     	//return ResponseEntity.ok(json);
     }
