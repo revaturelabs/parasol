@@ -35,7 +35,7 @@
 	
 	<!-- Module -->
 	<ul class="nav navbar-nav navbar-right" ng-show="authenticated">
-		<li><a href="#!/moduleList"><i class="fa fa-home"></i>Modules</a></li>
+		<li><a href="#!/"><i class="fa fa-home"></i>Modules</a></li>
 		<li ng-show="admin"><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
 		<li><a href="/logout">Logout</a></li>
 	</ul>
@@ -94,9 +94,6 @@
 				.when('/', {
 					templateUrl: 'html/modList.html'
 				})
-				.when('/moduleList', {
-					templateUrl: 'html/modList.html'
-				})
 				.when('/moduleReg', {
 					templateUrl: 'html/modReg.html'
 				})
@@ -107,7 +104,7 @@
 			var self = $scope;
 			self.toSalesforce = toSalesforce;
 			//self.modules = [{"moduleName":"Scheduling","moduleURL":"http://www.google.com"},{"moduleName":"Bootcamp","moduleURL":"http://www.google.com"},{"moduleName":"Associate Info","moduleURL":"http://www.google.com"},{"moduleName":"Associate Evaluation","moduleURL":"http://www.google.com"},{"moduleName":"Reports","moduleURL":"http://www.google.com"}]
-	       	self.modules = "";
+	       		self.modules = "";
 			self.setHover = setHover;
 			self.hover = null;
 			self.authenticated = false;
