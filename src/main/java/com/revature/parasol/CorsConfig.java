@@ -29,16 +29,16 @@ public class CorsConfig implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-    	System.out.println("WTF");
     	HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Method", "POST, PUT, DELETE, GET, OPTIONS");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
         if(((HttpServletRequest)servletRequest).getMethod() != "OPTIONS"){
+        	System.out.println("NO OPTIONS");
             filterChain.doFilter(servletRequest, response);
         }else{
-
+        	System.out.println("OPTIONS AYE IT DOESNT WORK");
         }
     }
 
