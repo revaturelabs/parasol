@@ -38,8 +38,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.csrf()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-
-		http
-				.addFilterBefore(new CorsConfig(), ChannelProcessingFilter.class);
     }
 }
