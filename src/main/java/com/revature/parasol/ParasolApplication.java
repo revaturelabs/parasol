@@ -8,12 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ParasolApplication {
 
 	public static void main(String[] args) {
-	    try{
-		
-	    }
-	    catch(Exception e){
-		Logger.getRootLogger().error(e);
-	    }
 		SpringApplication.run(ParasolApplication.class, args);
 	}
 }

@@ -26,7 +26,7 @@ public class CORSController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public Map<String,Object> getAllUsers(OAuth2Authentication p) throws JSONException {
-
+		System.out.println("WTF getAllUsers");
 		//holds the data to be returned
 		Map<String,Object> map = new HashMap<>();
 
