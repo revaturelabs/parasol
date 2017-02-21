@@ -19,7 +19,7 @@ public class CorsConfig{
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:8085");
-        config.addAllowedOrigin("https://dev.parasol.revature.pro/**");
+        config.addAllowedOrigin("https://dev.parasol.revature.pro");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
