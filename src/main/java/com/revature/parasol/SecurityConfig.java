@@ -7,8 +7,11 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author Marc
@@ -16,6 +19,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  */
 @Configuration
 @EnableOAuth2Sso
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
    
 	@Override
@@ -34,5 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.csrf()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+
+		http
+				.addFilter();
     }
 }
