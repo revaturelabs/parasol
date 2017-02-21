@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8085")
 public class CORSController {
 
 	@Autowired
@@ -23,7 +24,6 @@ public class CORSController {
 //	}
 
 
-	@CrossOrigin
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public Map<String,Object> getAllUsers(OAuth2Authentication p) throws JSONException {
 
