@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Demo</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://use.fontawesome.com/64f18c2489.js" type="text/javascript"></script>
-<script src="webjars/angularjs/1.6.1/angular.min.js" type ="text/javascript"></script>
-<script src="webjars/angularjs/1.6.1/angular-route.js" type ="text/javascript"></script>
-
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/freelancer.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="css/modReg.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Parasol</title>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://use.fontawesome.com/64f18c2489.js" type="text/javascript"></script>
+	<script src="webjars/angularjs/1.6.1/angular.min.js" type ="text/javascript"></script>
+	<script src="webjars/angularjs/1.6.1/angular-route.js" type ="text/javascript"></script>
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/freelancer.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="css/modReg.css" rel="stylesheet">
 </head>
 
 <body ng-app="ParasolApp" ng-controller="home">
@@ -27,7 +27,7 @@
 			<img src="/images/revature_logo.png" alt="logo" class="logo">
 			<!-- Module -->
 			<ul class="nav navbar-nav navbar-right tabbars" ng-show="authenticated">
-				<li><a href="#!/"><i class="fa fa-home"></i>Modules</a></li>
+				<li><a href="#!/moduleList/"><i class="fa fa-home"></i>Modules</a></li>
 				<li ng-show="admin"><a href="#!/moduleReg"><i class="fa fa-shield"></i>Module Registration</a></li>
 				<li><a href="/logout">Logout</a></li>
 			</ul>
@@ -35,7 +35,7 @@
 	</nav>
 
 	<!-- Login -->
-	<div class="container" ng-show="!authenticated">
+	<div class="container" ng-hide="authenticated">
 		<a href="/auth/sflogin">Salesforce: </a>
 		<button type="button" ng-click="toSalesforce()"
 			class="btn btn-primary btn-lg btn3d">Login</button>
@@ -93,13 +93,13 @@
 		
 		app.config(function($routeProvider) {
 			$routeProvider
-				.when('/', {
+				.when('/moduleList', {
 					templateUrl: 'html/modList.html'
 				})
 				.when('/moduleReg', {
 					templateUrl: 'html/modReg.html'
 				})
-				.otherwise('/')
+				.otherwise('/moduleList')
 		});
 		
 		app.controller("home", function($scope, $http, $location, $window) {
