@@ -1,19 +1,16 @@
 package com.revature.parasol;
 
-import org.apache.catalina.filters.CorsFilter;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * Created by Billy on 2/21/2017.
  */
+@Configuration
 public class CorsConfig{
 
     @Bean
@@ -25,7 +22,7 @@ public class CorsConfig{
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(0);
         return bean;
     }

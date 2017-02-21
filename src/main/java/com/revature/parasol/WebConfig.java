@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 /**
  * Created by Billy on 2/21/2017.
  */
-@Configuration
+
 public class WebConfig {
 
     @Bean
