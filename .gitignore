@@ -19,6 +19,7 @@ bin/
 staging-management-system.iml
 .classpath
 .project
+parasol.iml
 
 # MAC
 .DS_Store

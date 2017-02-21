@@ -79,7 +79,36 @@ public class Force {
         }
         return role;
     }
-    
+
+    //Gets all users from SalesForce
+    public String getAllUsers(OAuth2Authentication principal){
+        String url = restUrl(principal) + "query/?q={q}";
+        String userId = getUserId(principal);
+        JSONObject response = null;
+
+        //String query
+        Map<String, String> params = new HashMap<>();
+
+        //gets ALL users
+        params.put("q", "SELECT Name FROM user where Name = 'partner Site Guest User'");
+        //params.put("q", "SELECT Name FROM user");
+        String test = null;
+
+        try {
+            response = new JSONObject(restTemplate.getForObject(url, String.class, params));
+            test =  response.getJSONObject("records").getString("Name");
+
+        } catch (RestClientException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+        return test;
+    }
+
     //Checks whether the user role is an admin or not
     public static boolean isAdmin(String role) {
         if (role.equals("VP of Technology") || role.equals("COO")||
