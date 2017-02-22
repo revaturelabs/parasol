@@ -2,7 +2,7 @@
 <div class="container" ng-show="authenticated">
 	<ul class="nav nav-justified">
 		<li role="presentation" class="" ng-repeat="mod in modules" id="{{mod.moduleName}}">
-			<form action="/moduleURL" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)">
+			<form action="/moduleURL" ng-mouseover="setHover(mod)" ng-mouseleave="setHover(null)" class="formStyle">
 				<input type="hidden" name="moduleURL" value="{{mod.moduleURL}}">
 				<button type="submit"><i class="fa fa-calendar-plus-o fa-4x"></i></button>
 			</form>
