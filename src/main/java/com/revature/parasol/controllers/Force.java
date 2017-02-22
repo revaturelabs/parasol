@@ -90,12 +90,13 @@ public class Force {
         Map<String, String> params = new HashMap<>();
 
         //gets ALL users
-        params.put("q", "SELECT Name FROM user where Name = 'partner Site Guest User'");
+        params.put("q", "SELECT Name FROM user where id = '" + userId + "'");
         //params.put("q", "SELECT Name FROM user");
         String test = null;
 
         try {
             response = new JSONObject(restTemplate.getForObject(url, String.class, params));
+            System.out.println("FORCE THING " + response);
             test =  response.getJSONObject("records").getString("Name");
 
         } catch (RestClientException e1) {
