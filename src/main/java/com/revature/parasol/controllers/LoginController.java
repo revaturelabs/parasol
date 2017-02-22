@@ -39,11 +39,11 @@ public class LoginController {
 
 	//Billy Code Added
 	@Autowired
-	Force force;
+	private Force force;
 	@Autowired
-	PermissionsService ps;
+	private PermissionsService ps;
 	@Autowired
-	RestTemplate restTemplate;
+	private RestTemplate restTemplate;
 
 	@RequestMapping(value = "/modules")
 	@ResponseBody
@@ -60,11 +60,11 @@ public class LoginController {
 		
 		//Populate module list
 		for (Permissions p : pList) {
-			System.out.println(p.getModule().getModuleURL() + " HEALTH IS " + healthCheck(p.getModule().getModuleURL()));
-//			if (healthCheck(p.getModule().getModuleURL())) {
-//				mod.add(p.getModule());
-//			}
-			mod.add(p.getModule());
+			//System.out.println(p.getModule().getModuleURL() + " HEALTH IS " + healthCheck(p.getModule().getModuleURL()));
+			if (healthCheck(p.getModule().getModuleURL())) {
+				mod.add(p.getModule());
+			}
+			//mod.add(p.getModule());
 		}
 		
 		//Returns modules and admin status

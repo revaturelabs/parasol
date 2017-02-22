@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8085")
+@CrossOrigin
 @RequestMapping(value="/api")
 public class CORSController {
 
