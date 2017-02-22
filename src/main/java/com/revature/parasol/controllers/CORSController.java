@@ -23,19 +23,19 @@ public class CORSController {
 	Force force;
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public Map<String, Object> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
+	public Map<String, String> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
 //		if (req.getCookies() != null) {
 //			System.out.println("Cookies Found " + req.getCookies().length);
 //		}
 
 		//holds the data to be returned
-		Map<String,Object> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 
 		//calls force to get users from SF
 		JSONArray result = force.getAllUsers(p);
-        System.out.println("THE RESULTS " + result);
+        System.out.println("THE RESULTS " + result.toString());
 		//loading map from result
-		map.put("data", result);
+		map.put("data", result.toString());
 
 		//returns map
 		return map;
