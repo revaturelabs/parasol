@@ -39,9 +39,9 @@ public class CORSController {
 
 		//calls force to get users from SF
 		String result = force.getAllUsers(p);
-		System.out.println("The result is " + result);
+
 		//loading map from result
-		map.put("data", result);
+		map.put("name", result);
 
 		//returns map
 		return map;

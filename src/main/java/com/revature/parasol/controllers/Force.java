@@ -96,8 +96,7 @@ public class Force {
 
         try {
             response = new JSONObject(restTemplate.getForObject(url, String.class, params));
-            System.out.println("FORCE THING " + response);
-            test =  response.getJSONObject("records").getString("Name");
+            test =  response.getJSONArray("records").getJSONObject(0).getString("Name");
 
         } catch (RestClientException e1) {
             // TODO Auto-generated catch block
