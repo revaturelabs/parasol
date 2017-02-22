@@ -95,7 +95,6 @@ public class Force {
 
         try {
             response = new JSONObject(restTemplate.getForObject(url, String.class, params));
-            System.out.println(response);
             int size = response.getInt("totalSize");
             for (int i = 0; i < size; i++) {
             	JSONObject tmp = new JSONObject();

@@ -1,5 +1,8 @@
 package com.revature.parasol.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONArray;
@@ -20,22 +23,22 @@ public class CORSController {
 	Force force;
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public JSONArray getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
+	public Map<String, Object> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
 //		if (req.getCookies() != null) {
 //			System.out.println("Cookies Found " + req.getCookies().length);
 //		}
 
 		//holds the data to be returned
-		//Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map = new HashMap<>();
 
 		//calls force to get users from SF
 		JSONArray result = force.getAllUsers(p);
-
+        System.out.println("THE RESULTS " + result);
 		//loading map from result
-		//map.put("name", result);
+		map.put("data", result);
 
 		//returns map
-		return result;
+		return map;
 	}
 	
 }
