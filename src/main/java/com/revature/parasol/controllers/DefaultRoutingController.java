@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +35,8 @@ public class DefaultRoutingController {
     @RequestMapping(value = "/moduleURL")
     public void redirecting(@RequestParam("moduleURL") String url, HttpServletResponse resp, OAuth2Authentication p) throws IOException{
     	@SuppressWarnings("unchecked")
-		HashMap<String, Object> details = (HashMap<String, Object>) p.getDetails();
-    	String token = (String) details.get("tokenValue");
+    	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) p.getDetails();
+    	String token = details.getTokenValue();
     	Cookie cookie = new Cookie("token", token);
     	cookie.setMaxAge(60*5);
     	resp.addCookie(cookie);
