@@ -3,6 +3,8 @@ package com.revature.parasol.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8085")
+@RequestMapping(value="/api")
 public class CORSController {
 
 	@Autowired
@@ -25,8 +28,8 @@ public class CORSController {
 
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public Map<String,Object> getAllUsers(OAuth2Authentication p) throws JSONException {
-		System.out.println("WTF getAllUsers");
+	public Map<String,Object> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
+		System.out.println("Cookies Found " + req.getCookies().length);
 		//holds the data to be returned
 		Map<String,Object> map = new HashMap<>();
 
@@ -34,7 +37,7 @@ public class CORSController {
 		String result = force.getAllUsers(p);
 
 		//loading map from result
-		map.put("data",result);
+		map.put("data", result);
 
 		//returns map
 		return map;
