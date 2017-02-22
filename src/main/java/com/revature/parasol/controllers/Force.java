@@ -4,12 +4,11 @@
 package com.revature.parasol.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -81,7 +80,7 @@ public class Force {
     }
 
     //Gets all users from SalesForce
-    public String getAllUsers(OAuth2Authentication principal){
+    public JSONArray getAllUsers(OAuth2Authentication principal){
         String url = restUrl(principal) + "query/?q={q}";
         String userId = getUserId(principal);
         JSONObject response = null;
@@ -90,13 +89,16 @@ public class Force {
         Map<String, String> params = new HashMap<>();
 
         //gets ALL users
-        params.put("q", "SELECT Name FROM user where id = '" + userId + "'");
-        //params.put("q", "SELECT Name FROM user");
-        String test = null;
+        //params.put("q", "SELECT Name FROM user where id = '" + userId + "'");
+        params.put("q", "SELECT Name FROM user");
+        JSONArray test = new JSONArray();
 
         try {
             response = new JSONObject(restTemplate.getForObject(url, String.class, params));
-            test =  response.getJSONArray("records").getJSONObject(0).getString("Name");
+            int size = response.getInt("totalSize");
+            for (int i = 0; i < size; i++) {
+                test.put(response.getJSONArray("records").getJSONObject(i).get("Name"));
+            }
 
         } catch (RestClientException e1) {
             // TODO Auto-generated catch block

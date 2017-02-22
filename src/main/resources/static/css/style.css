@@ -62,3 +62,43 @@ width: 100%;
 	right: 0px;
 	top: 60px;
 }
+button { position: relative; }
+ button:hover,
+ button:focus { background-color: transparent; }
+ button  { border-radius: 50px; box-shadow: 0 0 0 5px #72A4C2; padding:10px; padding-left:13px; }
+ button  {
+    max-width: 100%; 
+    opacity: .3; 
+    -webkit-transform: scale(.8,.8);
+            transform: scale(.8,.8);
+    -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button {
+    max-width: 100%;
+    opacity: .3;
+    -webkit-transform: scale(.8,.8);
+    transform: scale(.8,.8);
+    -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+button, button.active, button:active, button:focus, button:hover {
+    color: #18BC9C;
+    outline: 0;
+}
+ button.active > button,
+ button:hover > button,
+ button:focus > button { 
+    opacity: 1; 
+    -webkit-transform: none;
+            transform: none;
+    -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+button {
+    border-radius: 50px;
+    box-shadow: 0 0 0 5px #72A4C2;
+    padding: 10px;
+    padding-left: 13px;
+}
