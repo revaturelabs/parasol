@@ -2,6 +2,7 @@ package com.revature.parasol.domain.service;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class PermissionsService {
 	public List<Permissions> findByRole(Roles role) {
 		return pr.findByRole(role);
 	}
+	
 	public void insertPermissionByName(ModuleRegDTO data){ 
-		
 		
 		//parsing DTO object for PERMISSIONS object to be inserted
 		

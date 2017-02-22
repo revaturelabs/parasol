@@ -3,35 +3,27 @@
  */
 package com.revature.parasol.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.revature.parasol.domain.Modules;
-import com.revature.parasol.domain.Roles;
-import com.revature.parasol.domain.Permissions;
-
-import com.revature.parasol.domain.service.PermissionsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.revature.parasol.domain.Modules;
+import com.revature.parasol.domain.Permissions;
+import com.revature.parasol.domain.Roles;
+import com.revature.parasol.domain.service.PermissionsService;
 
 
 /**
@@ -81,23 +73,7 @@ public class LoginController {
 	    cookieClearingLogoutHandler.logout(request, response, null);
 	    securityContextLogoutHandler.logout(request, response, null);
 		request.getSession(false);
-		     
-		//clear spring security context
-//		SecurityContextHolder.clearContext();
-//		       
-//		session = request.getSession(false);
-   
-		//Invalidate session
-//		if(session != null) {
-//			session.invalidate();
-//		}
 
-		//Clear Cookies
-//		for(Cookie cookie : request.getCookies()) {
-//			cookie.setMaxAge(0);
-//		}
-		
-		//return "redirect:index.html";
 		return "redirect:/";
 	}
 }
