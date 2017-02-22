@@ -40,7 +40,7 @@ public class Force {
 
     @SuppressWarnings("unchecked")
     private static String restUrl(OAuth2Authentication principal) {
-	HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
+    	HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
 		HashMap<String, String> urls = (HashMap<String, String>) details.get("urls");
 		return urls.get("rest").replace("{version}", REST_VERSION);
     }

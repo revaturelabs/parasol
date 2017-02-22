@@ -1,5 +1,6 @@
 package com.revature.parasol.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +32,14 @@ public class DefaultRoutingController {
     }
     
     @RequestMapping(value = "/moduleURL")
-    public String redirecting(@RequestParam("moduleURL") String url, HttpServletResponse resp){
-    	Cookie cookie = new Cookie("hi", "world");
+    public void redirecting(@RequestParam("moduleURL") String url, HttpServletResponse resp, OAuth2Authentication p) throws IOException{
+    	@SuppressWarnings("unchecked")
+		HashMap<String, Object> details = (HashMap<String, Object>) p.getDetails();
+    	String token = (String) details.get("tokenValue");
+    	Cookie cookie = new Cookie("token", token);
+    	cookie.setMaxAge(60*5);
     	resp.addCookie(cookie);
-        return "redirect:" + url;
+        resp.sendRedirect(url);
     }
     
     

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,10 @@ public class CORSController {
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public Map<String,Object> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
-		System.out.println("Cookies Found " + req.getCookies().length);
+		if (req.getCookies() != null) {
+			System.out.println("Cookies Found " + req.getCookies().length);
+		}
+
 		//holds the data to be returned
 		Map<String,Object> map = new HashMap<>();
 

@@ -91,7 +91,7 @@
 	<script type="text/javascript">
 		var app = angular.module("ParasolApp", ["ngRoute"]);
 		
-		app.config(function($routeProvider) {
+		/* app.config(function($routeProvider) {
 			$routeProvider
 				.when('/moduleList', {
 					templateUrl: 'html/modList.html'
@@ -100,7 +100,7 @@
 					templateUrl: 'html/modReg.html'
 				})
 				.otherwise('/moduleList')
-		});
+		}); */
 		
 		app.controller("home", function($scope, $http, $location, $window) {
 			var self = $scope;
