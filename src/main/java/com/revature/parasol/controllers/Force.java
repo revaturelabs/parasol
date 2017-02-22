@@ -32,7 +32,7 @@ public class Force {
     private static final String REST_VERSION = "35.0";
     
 	@Bean
-	private RestTemplate restTemplate() {
+	public RestTemplate restTemplate() {
 	    return new RestTemplate();
 	}
 
@@ -44,9 +44,6 @@ public class Force {
     
     @Autowired
     private OAuth2RestTemplate restTemplate;
-    
-	@Autowired
-	RestTemplate restTemplate2;
     
     @SuppressWarnings("unchecked")
     private static String restUrl(OAuth2Authentication principal) {
@@ -130,22 +127,6 @@ public class Force {
             role.equals("Content and Quality") || role.equals("Trainers")) {
             return true;
         }else {
-            return false;
-        }
-    }
-    
-    public boolean healthCheck(String url) {
-    	//Get status of website
-        try{
-            ResponseEntity<String> response = restTemplate2.getForEntity(url + "/health", String.class);
-            if(response.getStatusCode() == HttpStatus.OK){
-                return true;
-            }else {
-                return false;
-            }
-        }
-        catch (RestClientException e)
-        {
             return false;
         }
     }

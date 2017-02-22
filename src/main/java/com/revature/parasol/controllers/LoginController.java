@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.rememberme.AbstractRememb
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.revature.parasol.domain.Modules;
@@ -40,6 +42,8 @@ public class LoginController {
 	Force force;
 	@Autowired
 	PermissionsService ps;
+	@Autowired
+	RestTemplate restTemplate;
 
 	@RequestMapping(value = "/modules")
 	@ResponseBody
@@ -56,7 +60,7 @@ public class LoginController {
 		
 		//Populate module list
 		for (Permissions p : pList) {
-			if (force.healthCheck(p.getModule().getModuleURL())) {
+			if (healthCheck(p.getModule().getModuleURL())) {
 				mod.add(p.getModule());
 			}
 		}
@@ -80,4 +84,20 @@ public class LoginController {
 
 		return "redirect:/";
 	}
+	
+    private boolean healthCheck(String url) {
+    	//Get status of website
+        try{
+            ResponseEntity<String> response = restTemplate.getForEntity(url + "/health", String.class);
+            if(response.getStatusCode() == HttpStatus.OK){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        catch (RestClientException e)
+        {
+            return false;
+        }
+    }
 }
