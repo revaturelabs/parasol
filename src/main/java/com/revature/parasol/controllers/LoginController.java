@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,6 +20,7 @@ import org.springframework.security.web.authentication.rememberme.AbstractRememb
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.revature.parasol.domain.Modules;
 import com.revature.parasol.domain.Permissions;
@@ -39,7 +41,7 @@ public class LoginController {
 	@Autowired
 	PermissionsService ps;
 
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/modules")
 	@ResponseBody
 	public Map<String, Object> getModules(OAuth2Authentication principal) {
 		//Gets the role name from Salesforce and create a new instance of Role
@@ -51,9 +53,12 @@ public class LoginController {
 
 		//Gets the list of permissions user has access to
 		List<Permissions> pList = ps.findByRole(role);
+		
 		//Populate module list
 		for (Permissions p : pList) {
-			mod.add(p.getModule());
+			if (force.healthCheck(p.getModule().getModuleURL())) {
+				mod.add(p.getModule());
+			}
 		}
 		
 		//Returns modules and admin status
@@ -66,7 +71,6 @@ public class LoginController {
 	//Logging out - Ramiz
 	@RequestMapping(value = "/logout")
 	public String DoLogout(HttpServletRequest request, HttpServletResponse response){
-	   
 		//http://docs.spring.io/spring-security/site/xref/org/springframework/security/ui/logout/SecurityContextLogoutHandler.html
 		CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 	    SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();

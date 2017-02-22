@@ -49,16 +49,11 @@ public class DefaultRoutingController {
     	Map<String,String> status = new HashMap<>();
     	
     	//calls service layer insert for new permissions
-    	try {
-        	ps.insertPermissionByName(data);
-        	//Returns nothing really
-        	return status;
-    	} catch(HibernateException e) {
-            //Response or status
-    		status.put("error", "Module Already Exist");
-            return status;
-    	}
-        
+    	ps.insertPermissionByName(data);
+
+		status.put("msg", "Module registration was successful.");
+        return status;
+     
     	//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(status);
     	//return ResponseEntity.ok(json);
     }

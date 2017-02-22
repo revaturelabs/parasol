@@ -11,12 +11,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Marc
@@ -27,16 +30,24 @@ import org.springframework.web.client.RestClientException;
 public class Force {
 
     private static final String REST_VERSION = "35.0";
+    
+	@Bean
+	private RestTemplate restTemplate() {
+	    return new RestTemplate();
+	}
 
     @Bean
     private OAuth2RestTemplate oAuth2RestTemplate(OAuth2ProtectedResourceDetails resource,
 	    OAuth2ClientContext context) {
     	return new OAuth2RestTemplate(resource, context);
     }
-
+    
     @Autowired
     private OAuth2RestTemplate restTemplate;
-
+    
+	@Autowired
+	RestTemplate restTemplate2;
+    
     @SuppressWarnings("unchecked")
     private static String restUrl(OAuth2Authentication principal) {
     	HashMap<String, Object> details = (HashMap<String, Object>) principal.getUserAuthentication().getDetails();
@@ -82,7 +93,6 @@ public class Force {
     //Gets all users from SalesForce
     public JSONArray getAllUsers(OAuth2Authentication principal){
         String url = restUrl(principal) + "query/?q={q}";
-        String userId = getUserId(principal);
         JSONObject response = null;
 
         //String query
@@ -120,6 +130,22 @@ public class Force {
             role.equals("Content and Quality") || role.equals("Trainers")) {
             return true;
         }else {
+            return false;
+        }
+    }
+    
+    public boolean healthCheck(String url) {
+    	//Get status of website
+        try{
+            ResponseEntity<String> response = restTemplate2.getForEntity(url + "/health", String.class);
+            if(response.getStatusCode() == HttpStatus.OK){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        catch (RestClientException e)
+        {
             return false;
         }
     }

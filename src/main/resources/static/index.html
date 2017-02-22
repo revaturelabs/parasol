@@ -114,7 +114,7 @@
 			
 			$http({
 				method : 'GET',
-				url : '/login'
+				url : '/modules'
 			}).then(function(success) {
 				self.modules = success.data.modules;
 				self.authenticated = true;
@@ -175,13 +175,10 @@
 					url : '/moduleregistration'
 				}).then(function(success) {
 					self.validdata = [];
-					if (success.data.error != null) {
-						self.msg = success.data.error;
-					}else {
-						self.msg = "Post Data Submitted Successfully!";
-						$window.location.href = '/';
-					}
+					self.msg = success.data.msg;
+					$window.location.href = '/';
 				}, function(error) {
+					console.log(error.data);
 					self.msg = "Module already exist.";
 					self.validdata = [];
 				});
