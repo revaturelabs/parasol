@@ -34,7 +34,6 @@ public class DefaultRoutingController {
     
     @RequestMapping(value = "/moduleURL")
     public void redirecting(@RequestParam("moduleURL") String url, HttpServletResponse resp, OAuth2Authentication p) throws IOException{
-    	@SuppressWarnings("unchecked")
     	OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) p.getDetails();
     	String token = details.getTokenValue();
     	Cookie cookie = new Cookie("token", token);
