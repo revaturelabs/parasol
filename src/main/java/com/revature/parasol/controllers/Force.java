@@ -12,7 +12,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -30,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class Force {
 
-    private static final String REST_VERSION = "37.0";
+    private static final String REST_VERSION = "35.0";
     
 	@Bean
 	public RestTemplate restTemplate() {
@@ -122,12 +125,15 @@ public class Force {
     }
     
     public void insertContact(OAuth2Authentication principal) {
-    	  String uri = restUrl(principal) + "sobjects/Account/Id";
+    	  String uri = restUrl(principal) + "sobjects/Account/";
     	  JSONObject test = new JSONObject();
     	  try {
 			test.put("Name", "TestingABC123");
-			HttpEntity<String> request = new HttpEntity<>(test.toString());
-			String response = restTemplate.postForObject(uri, test.toString(), String.class);
+			// set headers
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> request = new HttpEntity<>(test.toString(), headers);
+			ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
 			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     	  } catch (RestClientException e1) {
             // TODO Auto-generated catch block
