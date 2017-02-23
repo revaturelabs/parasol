@@ -142,12 +142,9 @@ public class Force {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
     	  }
-    	// set headers
-    				HttpHeaders headers = new HttpHeaders();
-    				headers.setContentType(MediaType.APPLICATION_JSON);
-    				HttpEntity<String> request = new HttpEntity<>(test.toString(), headers);
-    				ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
-    				System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
+		HttpEntity<String> request = new HttpEntity<>(test.toString());
+		ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
+		System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
 
     //Checks whether the user role is an admin or not
