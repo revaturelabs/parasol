@@ -29,8 +29,6 @@ public class CorsConfig implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
         if(((HttpServletRequest)servletRequest).getMethod() != "OPTIONS"){
             filterChain.doFilter(servletRequest, response);
-        }else{
-        	
         }
     }
 

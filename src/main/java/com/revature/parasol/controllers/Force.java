@@ -119,6 +119,19 @@ public class Force {
 
         return test;
     }
+    
+    public void insertContact(OAuth2Authentication principal) {
+    	  String uri = restUrl(principal) + "sobjects/Account/";
+    	  JSONObject test = new JSONObject();
+    	  try {
+			test.put("name", "TestingABC123");
+    	  } catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+    	  }
+    	  String response = restTemplate.postForObject(uri, test.toString(), String.class);
+    	  System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
+    }
 
     //Checks whether the user role is an admin or not
     public static boolean isAdmin(String role) {
