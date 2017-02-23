@@ -61,10 +61,10 @@ public class LoginController {
 		//Populate module list
 		for (Permissions p : pList) {
 			//System.out.println(p.getModule().getModuleURL() + " HEALTH IS " + healthCheck(p.getModule().getModuleURL()));
-			if (healthCheck(p.getModule().getModuleURL())) {
-				mod.add(p.getModule());
+			if (!healthCheck(p.getModule().getModuleURL())) {
+				p.getModule().setModuleURL(null);
 			}
-			//mod.add(p.getModule());
+			mod.add(p.getModule());
 		}
 		
 		//Returns modules and admin status
