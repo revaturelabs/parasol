@@ -142,8 +142,8 @@ public class Force {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
     	  }
-		HttpEntity<String> request = new HttpEntity<>(test.toString());
-		ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
+		Map<String, String> request = new HashMap<String, String>();
+		String response = restTemplate.postForObject(uri, request, String.class);
 		System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
 
