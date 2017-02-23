@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
@@ -29,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class Force {
 
-    private static final String REST_VERSION = "35.0";
+    private static final String REST_VERSION = "37.0";
     
 	@Bean
 	public RestTemplate restTemplate() {
@@ -121,16 +122,20 @@ public class Force {
     }
     
     public void insertContact(OAuth2Authentication principal) {
-    	  String uri = restUrl(principal) + "sobjects/Account/";
+    	  String uri = restUrl(principal) + "sobjects/Account/Id";
     	  JSONObject test = new JSONObject();
     	  try {
-			test.put("name", "TestingABC123");
-    	  } catch (JSONException e) {
+			test.put("Name", "TestingABC123");
+			HttpEntity<String> request = new HttpEntity<>(test.toString());
+			String response = restTemplate.postForObject(uri, test.toString(), String.class);
+			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
+    	  } catch (RestClientException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          } catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
     	  }
-    	  String response = restTemplate.postForObject(uri, test.toString(), String.class);
-    	  System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
 
     //Checks whether the user role is an admin or not
