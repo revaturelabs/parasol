@@ -39,7 +39,7 @@ public class CORSController {
 		return map;
 	}
 	
-	@RequestMapping(value = "/createContact", method = RequestMethod.POST)
+	@RequestMapping(value = "/createContact", method = RequestMethod.GET)
 	public Map<String, String> createContact(@RequestParam("LastName") String ln, OAuth2Authentication p) {
 		//holds the data to be returned
 		Map<String, String> map = new HashMap<>();
