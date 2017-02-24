@@ -25,12 +25,27 @@ public class CORSController {
 	Force force;
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public Map<String, String> getAllUsers(HttpServletRequest req, OAuth2Authentication p) throws JSONException {
+	public Map<String, String> getAllUsers(OAuth2Authentication p) throws JSONException {
 		//holds the data to be returned
 		Map<String, String> map = new HashMap<>();
 
 		//calls force to get users from SF
 		JSONArray result = force.getAllUsers(p);
+
+		//loading map from result
+		map.put("data", result.toString());
+
+		//returns map
+		return map;
+	}
+	
+	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
+	public Map<String, String> getAllContacts(OAuth2Authentication p) throws JSONException {
+		//holds the data to be returned
+		Map<String, String> map = new HashMap<>();
+
+		//calls force to get contacts from SF
+		JSONArray result = force.getAllContacts(p);
 
 		//loading map from result
 		map.put("data", result.toString());

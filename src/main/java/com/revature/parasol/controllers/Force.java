@@ -124,6 +124,38 @@ public class Force {
         return test;
     }
     
+  //Gets all contacts from SalesForce
+    public JSONArray getAllContacts(OAuth2Authentication principal){
+        String url = restUrl(principal) + "query/?q={q}";
+        JSONObject response = null;
+
+        //String query
+        Map<String, String> params = new HashMap<>();
+
+        //gets ALL contacts
+        params.put("q", "SELECT LastName FROM Contact");
+        JSONArray test = new JSONArray();
+
+        try {
+            response = new JSONObject(restTemplate.getForObject(url, String.class, params));
+            int size = response.getInt("totalSize");
+            for (int i = 0; i < size; i++) {
+            	JSONObject tmp = new JSONObject();
+            	tmp.put("name", response.getJSONArray("records").getJSONObject(i).getString("LastName"));
+                test.put(tmp);
+            }
+
+        } catch (RestClientException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
+        return test;
+    }
+    
     public void insertContact(OAuth2Authentication principal, String lastName) {
     	String uri = restUrl(principal) + "sobjects/Contact/";
 		Map<String, String> request = new HashMap<String, String>();
