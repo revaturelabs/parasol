@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins="http://ec2-35-163-220-111.us-west-2.compute.amazonaws.com:8085/")
 @RequestMapping(value="/api")
 public class CORSController {
 
@@ -40,7 +40,7 @@ public class CORSController {
 	}
 	
 	@RequestMapping(value = "/createContact", method = RequestMethod.POST)
-	public Map<String, String> createContact(@RequestParam("LastName") String ln, HttpServletRequest req, OAuth2Authentication p) throws JSONException {
+	public Map<String, String> createContact(@RequestParam("LastName") String ln, OAuth2Authentication p) {
 		//holds the data to be returned
 		Map<String, String> map = new HashMap<>();
 		System.out.println("THE LAST NAME IS " + ln);
