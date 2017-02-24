@@ -143,6 +143,7 @@ public class Force {
 			e.printStackTrace();
     	  }
 		Map<String, String> request = new HashMap<String, String>();
+		request.put("Name", "TestingABC123");
 		String response = restTemplate.postForObject(uri, request, String.class);
 		System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
