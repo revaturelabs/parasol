@@ -48,7 +48,6 @@ public class LoginController {
 	@RequestMapping(value = "/modules")
 	@ResponseBody
 	public Map<String, Object> getModules(OAuth2Authentication principal) {
-		force.insertContact(principal);
 		//Gets the role name from Salesforce and create a new instance of Role
 		String roleName = force.getRoleName(principal);
 		Roles role = new Roles(roleName);

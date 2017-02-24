@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,4 +39,18 @@ public class CORSController {
 		return map;
 	}
 	
+	@RequestMapping(value = "/createContact", method = RequestMethod.POST)
+	public Map<String, String> createContact(@RequestParam("LastName") String ln, OAuth2Authentication p) throws JSONException {
+		//holds the data to be returned
+		Map<String, String> map = new HashMap<>();
+		
+		//Insert contact
+		force.insertContact(p, ln);
+		
+		//map status
+		map.put("status", "It might have worked.");
+
+		//returns map
+		return map;
+	}
 }

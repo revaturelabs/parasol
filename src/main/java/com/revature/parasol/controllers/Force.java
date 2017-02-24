@@ -124,32 +124,12 @@ public class Force {
         return test;
     }
     
-    public void insertContact(OAuth2Authentication principal) {
-    	  String uri = restUrl(principal) + "sobjects/Contact/";
-    	  JSONObject test = new JSONObject();
-    	  try {
-			test.put("Name", "TestingABC123");
-			// set headers
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.setContentType(MediaType.APPLICATION_JSON);
-//			HttpEntity<String> request = new HttpEntity<>(test.toString(), headers);
-//			ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
-//			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
-//			Map<String, String> request = new HashMap<String, String>();
-//			request.put("LastName", "TestingABC123");
-//			String response = restTemplate.postForObject(uri, request, String.class);
-//			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
-    	  } catch (RestClientException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-          } catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-    	  }
-    	  Map<String, String> request = new HashMap<String, String>();
-			request.put("LastName", "TestingABC123");
-			String response = restTemplate.postForObject(uri, request, String.class);
-			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
+    public void insertContact(OAuth2Authentication principal, String lastName) {
+    	String uri = restUrl(principal) + "sobjects/Contact/";
+		Map<String, String> request = new HashMap<String, String>();
+		request.put("LastName", lastName);
+		String response = restTemplate.postForObject(uri, request, String.class);
+		System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
 
     //Checks whether the user role is an admin or not
