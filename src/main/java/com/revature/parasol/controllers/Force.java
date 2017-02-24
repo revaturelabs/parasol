@@ -135,6 +135,10 @@ public class Force {
 //			HttpEntity<String> request = new HttpEntity<>(test.toString(), headers);
 //			ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
 //			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
+			Map<String, String> request = new HashMap<String, String>();
+			request.put("Name", "TestingABC123");
+			String response = restTemplate.postForObject(uri, request, String.class);
+			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     	  } catch (RestClientException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -142,10 +146,6 @@ public class Force {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
     	  }
-		Map<String, String> request = new HashMap<String, String>();
-		request.put("Name", "TestingABC123");
-		String response = restTemplate.postForObject(uri, request, String.class);
-		System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     }
 
     //Checks whether the user role is an admin or not
