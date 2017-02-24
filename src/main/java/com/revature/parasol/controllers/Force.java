@@ -125,7 +125,7 @@ public class Force {
     }
     
     public void insertContact(OAuth2Authentication principal) {
-    	  String uri = restUrl(principal) + "sobjects/Account/";
+    	  String uri = restUrl(principal) + "sobjects/Contact/";
     	  JSONObject test = new JSONObject();
     	  try {
 			test.put("Name", "TestingABC123");
@@ -136,7 +136,7 @@ public class Force {
 //			ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.POST, request, String.class);
 //			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
 			Map<String, String> request = new HashMap<String, String>();
-			request.put("Name", "TestingABC123");
+			request.put("LastName", "TestingABC123");
 			String response = restTemplate.postForObject(uri, request, String.class);
 			System.out.println("THE SOBJECT RESPONSE CALL IS " + response);
     	  } catch (RestClientException e1) {
